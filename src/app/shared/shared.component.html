@@ -1,0 +1,18 @@
+
+<div class="globalsettings">
+    <div class="setHeading">
+        <h6>Global Settings</h6>
+    </div>
+    <div class="formsettings">
+        <div> 
+            Repeat On
+            <ul>
+                  <li class="days-style" *ngFor="let day of weekdays"> 
+                      <span class="week-day">{{day}}</span>
+                  </li>
+             </ul>
+        </div>
+        <ngb-timepicker></ngb-timepicker>
+        <button type="button" class="btn">Apply</button>
+    </div>
+  </div>

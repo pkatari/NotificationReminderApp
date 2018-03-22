@@ -1,0 +1,36 @@
+<div class="accordion-list">
+    <div class="acc-heading">Notification</div>
+    <section *ngIf="accordionForm">
+        <form [formGroup]="accordionForm" (ngSubmit)="onSubmit()" novalidate>
+      <ngb-accordion [closeOthers]="true" activeIds="acc-4">
+        <div *ngFor="let acclist of accData">
+          <ngb-panel id="acc-{{acclist.id}}" title="{{acclist.acctitle}}">
+            <ng-template ngbPanelContent>
+                <div class="formsettings">
+                  <div> 
+                      Repeat On
+                      <ul>
+                          <li class="days-style" *ngFor="let week1 of weekdays;let i='index'"> 
+                              <a>{{week1}}</a>
+                          </li>
+                      </ul>     
+                  </div>
+                  <label>During</label>
+                  <select>
+                      <option *ngFor="let duringTime of fromTime">{{duringTime}}</option>
+                  </select>     
+                  <label>To</label>    
+                  <select>
+                      <option *ngFor="let toSelectTime of toTime">{{toSelectTime}}</option>
+                  </select> 
+                  <div class="resetButton">
+                      <button type="button" class="btn btn-link" (click)="restToGlobalSettings()">Reset to Global Settings</button>
+                  </div>
+              </div>
+            </ng-template>
+          </ngb-panel>
+        </div>
+        </ngb-accordion>
+      </form>
+      </section>
+    </div>

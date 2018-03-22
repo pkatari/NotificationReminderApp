@@ -1,0 +1,10 @@
+@mixin positionset($display,$position,$top) {
+    display  : $display;
+    position : $position;
+    top      : $top;
+}
+
+@mixin setwidthheight($width,$height) {
+    width  : $width;
+    height : $height;
+}
