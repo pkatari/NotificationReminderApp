@@ -1,7 +1,5 @@
-
-
 export interface GetGlobalSettings {
-    weekdays  : string[];
+    weekdays  : string[]
     toTime : string[];
     fromTime : string[];
 }
@@ -15,5 +13,4 @@ export class GetGlobalSettingsModel implements GetGlobalSettings {
         this.toTime = [];
         this.fromTime = [];
     }
-
 }

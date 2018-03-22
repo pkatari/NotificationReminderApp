@@ -9,13 +9,13 @@
                 Repeat On
                 <ul>
                     <li class="days-style" *ngFor="let week1 of weekdays;let i='index'"> 
-                        <a [ngClass]="{weekActive: isActive(i)}"  (click)="listClick($event, week1,i)">{{week1}}</a>
+                        <a  (click)="listClick($event, week1,i)">{{week1}}</a>
                     </li>
                 </ul>     
             </div>
             <label>During</label>
             <select formControlName="duringTime" class="during-time">
-                <option  *ngFor="let duringTime of fromTime" [value]="duringTime">{{duringTime}}</option>
+                <option  *ngFor="let duringTime of fromTime"  [value]="duringTime">{{duringTime}}</option>
             </select>     
             <label>to</label>    
             <select formControlName="toSelectTime" class="to-time">

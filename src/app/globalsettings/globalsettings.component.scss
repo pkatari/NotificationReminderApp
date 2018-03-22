@@ -6,51 +6,55 @@
         padding: $padding-val 0;
     }
     .form-settings {
-        border : 1px solid $lightgr-color;
-        padding : 2em;
-        border-radius : 1em;
-        max-width : 50em;
+        border: 1px solid $lightgr-color;
+        padding: 2em;
+        border-radius: 1em;
+        max-width: 50em;
         ul {
-            padding-left : 7em;
+            padding-left: 7em;
             margin-bottom: 0;
-            position : relative;
-            top : -2em;
+            position: relative;
+            top: -2em;
     
             .days-style {  
                 @include positionset(inline,relative,0.5em);
                 a {
                     @include setwidthheight(36px,33px);
-                    display : table-cell;
-                    text-align : center;
-                    vertical-align : middle;
-                    border-radius : 50%;
-                    background : $lightgr-color;
-                    cursor : pointer
+                    display: table-cell;
+                    text-align: center;
+                    vertical-align: middle;
+                    border-radius: 50%;
+                    background: $lightgr-color;
+                    cursor: pointer
                 }
             }
         }
         .during-time {
-            margin : 0 2em 0 4em;
+            margin: 0 2em 0 4em;
             border-radius: 0.3em;
+            height: 2em;
+            padding: 0 0 0 0.5em;
         }
         .to-time {
-            margin-left : 1em;
-            border-radius : 0.3em;
+            margin-left: 1em;
+            border-radius: 0.3em;
+            height: 2em;
+            padding: 0 0 0 0.5em;
         }
     }    
 }
 
 .active-apply {
-    background-color : $blue-color !important;
-    color : $white-color !important;
+    background-color: $blue-color !important;
+    color: $white-color !important;
 }
 
 .submit-button {
-    position : relative;
-    right : -10em;
-    width : 7em;
-    color : $blue-color;
-    border : 1px solid $blue-color;
+    position: relative;
+    right: -10em;
+    width: 7em;
+    color: $blue-color;
+    border: 1px solid $blue-color;
 }
 
 
