@@ -19,16 +19,10 @@
         padding: $padding-val;
         border: none;
         @include globalstyle();
-        .pull-left {
-           
-        }
+     
         .pull-right {
             padding-top: 3em;
-            .elapsed-round {
-                .elap-r {
-                
-                }
-            }
+          
         }
     }
     

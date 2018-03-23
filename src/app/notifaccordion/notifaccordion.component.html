@@ -30,19 +30,26 @@
                                         <option *ngFor="let toSelectTime of toTime" [value]="toSelectTime">{{toSelectTime}}</option>
                                     </select> 
                                     <div class="reset-button">
-                                        <button type="button" class="btn btn-link" (click)="restToGlobalSettings()">Reset to Global Settings</button>
+                                        <button type="button" class="btn btn-link" (click)="restToGlobalSettings(i)">Reset to Global Settings</button>
                                     </div>
                                 </div>
-                            </div>
+                         
                                 <div class="pull-right">
-                                  
+                                    <div> 
+                                        Elapse Time
+                                        <ul>
+                                            <li class="days-style" *ngFor="let round of elapseTimeRounds">
+                                                <a>{{round}}</a>
+                                            </li>
+                                        </ul> 
+                                    </div>
                                     <div class="day-frequency">  
-                                        <div FormArrayName="daysFrequency">
-                                            <input formControlName= class="input-field" type="text" name="username"title="Enter username"/>                                        
+                                        <div FormArrayName="daysFrequency" *ngFor="let freq of d.daysFrequency">
+                                            <input  class="input-field" type="text" value ="{{freq}}" name="username"title="Enter username"/>                                        
                                         </div>
                                     </div>
                                 </div>
-                            
+                            </div>
 
                         </ng-template>
                     </ngb-panel> 

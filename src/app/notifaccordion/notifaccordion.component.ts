@@ -21,7 +21,9 @@ export class NotifaccordionComponent implements OnInit {
   weekdays : string[];
   fromTime : string[];
   toTime :string[];
-
+  elapseTimeRounds : number[];
+  globalStoreData : {}
+  
     constructor(private accServiceData: AccordionDataService,private fb: FormBuilder,private render: Renderer,public store: Store<fromRootReducer.State>) { 
         this.createNotificationForm();
     }
@@ -37,7 +39,8 @@ export class NotifaccordionComponent implements OnInit {
     this.weekdays =  ['S','M','T','W','T','F','S'];
     this.fromTime =  ["7:00 am","8:00 am","9:00 am","10:00 am","11:00 am","12:00 pm","1:00 pm","2:00 pm","3: 00pm","4:00 pm","5:00 pm","6:00 pm","7:00 pm"];
     this.toTime   =  ["7:00 am","8:00 am","9:00 am","10:00 am","11:00 am","12:00 pm","1:00 pm","2:00 pm","3: 00pm","4:00 pm","5:00 pm","6:00 pm","7:00 pm"]
-
+    this.elapseTimeRounds = [1,2,3,4];
+    
     this.accServiceData.getAccordionData()
       .subscribe(
       gbVal => {
@@ -52,46 +55,60 @@ export class NotifaccordionComponent implements OnInit {
   patchForm() {
     let control = <FormArray>this.accordionForm.controls.notificationData;
     this.accData.forEach(x => {
-         var accRepeatDays = x.accrepeat;
+        var accRepeatDays = x.accrepeat;
+        var daysFrequency =[];
+        for(var i in x.timeRoundInfo) {
+          daysFrequency.push(x.timeRoundInfo[i]);
+        }
       control.push(this.fb.group({
         duringTime: x.accfromTime,
         toSelectTime :x.accToTime,
         titleAccordion : x.acctitle,
         weekday : [x.accrepeat],
-        elapsedTime : x.timeRoundInfo       
-      }));
-       
+        daysFrequency :[daysFrequency]
+      }));      
     })
   }
 
   listClick(event, weekValue,i) {  
     let found = false;
+    this.render.setElementClass(event.target, "active-apply", true); 
+  }
 
-        this.render.setElementClass(event.target, "active-apply", true); 
-  
- }
-  restToGlobalSettings() {
-    console.log("Reset to Global Settings clicked...");
-    this.store.subscribe((appState) => {
-        console.log(this.defaultSetState);
-        this.defaultSetState  = appState;
-        console.log("this.defaultSetState"); 
+  restToGlobalSettings(i) {
+    this.store.select('getSettingsData').subscribe((appState) => {
+        this.globalStoreData = appState;
     });
+    console.log(this.globalStoreData);
+    console.log(this.accordionForm.value);
+    console.log("*********before");
+    console.log(this.accordionForm.value.notificationData[i]);
+    console.log("***************");
+    this.accordionForm.value.notificationData[i].duringTime = this.globalStoreData['duringTime'];
+    this.accordionForm.value.notificationData[i].toSelectTime = this.globalStoreData['toSelectTime'];
+    this.accordionForm.value.notificationData[i].weekday = this.globalStoreData['weekday'];
+
+    let control = <FormArray>this.accordionForm.controls.notificationData;
+    console.log("*********After");
+    console.log(this.accordionForm.value.notificationData[i]);
+    console.log("***************");
+  
   }
 
   saveAccordionData(event,i) {
       console.log("Save Accordion Data");
+      console.log(this.accordionForm.value)
     //  console.log(this.accordionForm.value.notificationData[i].duringTime);
     
       //console.log(this.accordionForm)
   }
 
   dontSaveAccordionData(event) {
-       console.log("Dont Save Accordion Data");
+      console.log("Dont Save Accordion Data");
   }
 
   applyActiveClass(week) {
-      console.log(week)
+    //  console.log(week)
   }
 
 
