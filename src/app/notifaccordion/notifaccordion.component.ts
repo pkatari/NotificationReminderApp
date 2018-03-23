@@ -79,25 +79,18 @@ export class NotifaccordionComponent implements OnInit {
     this.store.select('getSettingsData').subscribe((appState) => {
         this.globalStoreData = appState;
     });
-    console.log(this.globalStoreData);
-    console.log(this.accordionForm.value);
-    console.log("*********before");
-    console.log(this.accordionForm.value.notificationData[i]);
-    console.log("***************");
-    this.accordionForm.value.notificationData[i].duringTime = this.globalStoreData['duringTime'];
-    this.accordionForm.value.notificationData[i].toSelectTime = this.globalStoreData['toSelectTime'];
-    this.accordionForm.value.notificationData[i].weekday = this.globalStoreData['weekday'];
-
-    let control = <FormArray>this.accordionForm.controls.notificationData;
-    console.log("*********After");
-    console.log(this.accordionForm.value.notificationData[i]);
-    console.log("***************");
   
+    const controlArray = <FormArray> this.accordionForm.get('notificationData');
+    controlArray.controls[i].get('duringTime').setValue(this.globalStoreData['toSelectTime']);
+    controlArray.controls[i].get('toSelectTime').setValue(this.globalStoreData['toSelectTime']);
+    controlArray.controls[i].get('weekday').setValue(this.globalStoreData['weekday']);
+    console.log(this.accordionForm.value)
+
   }
 
   saveAccordionData(event,i) {
       console.log("Save Accordion Data");
-      console.log(this.accordionForm.value)
+      console.log(this.accordionForm)
     //  console.log(this.accordionForm.value.notificationData[i].duringTime);
     
       //console.log(this.accordionForm)
