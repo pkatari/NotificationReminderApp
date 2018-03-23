@@ -1,36 +1,53 @@
 <div class="accordion-list">
     <div class="acc-heading">Notification</div>
     <section *ngIf="accordionForm">
-        <form [formGroup]="accordionForm" (ngSubmit)="onSubmit()" novalidate>
-      <ngb-accordion [closeOthers]="true" activeIds="acc-4">
-        <div *ngFor="let acclist of accData">
-          <ngb-panel id="acc-{{acclist.id}}" title="{{acclist.acctitle}}">
-            <ng-template ngbPanelContent>
-                <div class="formsettings">
-                  <div> 
-                      Repeat On
-                      <ul>
-                          <li class="days-style"> 
-                              <a></a>
-                          </li>
-                      </ul>     
-                  </div>
-                  <label>During</label>
-                  <select>
-                      <option *ngFor="let duringTime of fromTime">{{duringTime}}</option>
-                  </select>     
-                  <label>To</label>    
-                  <select>
-                      <option *ngFor="let toSelectTime of toTime">{{toSelectTime}}</option>
-                  </select> 
-                  <div class="resetButton">
-                      <button type="button" class="btn btn-link" (click)="restToGlobalSettings()">Reset to Global Settings</button>
-                  </div>
-              </div>
-            </ng-template>
-          </ngb-panel>
-        </div>
-        </ngb-accordion>
-      </form>
-      </section>
-    </div>
+        <form [formGroup]="accordionForm" (ngSubmit)="onSubmit()" novalidate>  
+            <div formArrayName="notificationData">
+                <ngb-accordion [closeOthers]="true" activeIds="acc-3" *ngFor="let d of accordionForm.controls.notificationData.controls; let i=index" formGroupName="{{i}}">                    
+                    <ngb-panel id="acc-{{i}}">
+                        <ng-template ngbPanelTitle>
+                                <input  disabled class="title-accordion" formControlName="titleAccordion" />
+                                        <button type="button" class="btn btn-link" (click)="saveAccordionData($event,i)">Save</button>
+                                        <button type="button" class="btn btn-link" (click)="dontSaveAccordionData($event)">Close</button>
+                        </ng-template>
+                        <ng-template ngbPanelContent>                                 
+                            <div class="form-settings ">
+                                <div class="pull-left">                                      
+                                    <div> 
+                                        Repeat On
+                                        <ul>
+                                            <li FormArrayName="weekday" class="days-style" *ngFor="let week1 of weekdays;let i='index'"> 
+                                                <a [ngClass]="applyActiveClass(week1) ? 'active-apply' : ''" (click)="listClick($event, week1,i)">{{week1}}</a>
+                                            </li>
+                                        </ul>     
+                                    </div>
+                                    <label>During</label>
+                                    <select formControlName="duringTime" class="during-time"> 
+                                        <option *ngFor="let duringTime of fromTime" [value]="duringTime">{{duringTime}}</option>
+                                    </select>     
+                                    <label>to</label>    
+                                    <select formControlName="toSelectTime"  class="to-time">
+                                        <option *ngFor="let toSelectTime of toTime" [value]="toSelectTime">{{toSelectTime}}</option>
+                                    </select> 
+                                    <div class="reset-button">
+                                        <button type="button" class="btn btn-link" (click)="restToGlobalSettings()">Reset to Global Settings</button>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="pull-right">
+                                  
+                                    <div class="day-frequency">  
+                                        <div FormArrayName="daysFrequency">
+                                            <input formControlName= class="input-field" type="text" name="username"title="Enter username"/>                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            
+
+                        </ng-template>
+                    </ngb-panel> 
+                </ngb-accordion>
+            </div>
+        </form>
+    </section>
+</div>

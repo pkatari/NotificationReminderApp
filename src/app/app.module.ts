@@ -3,20 +3,20 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
+import { AccordionDataService } from './service/accordiondata.service';
 import { GlobalsettingsComponent } from './globalsettings/globalsettings.component';
 import { NotifaccordionComponent } from './notifaccordion/notifaccordion.component';
 import {HttpModule} from "@angular/http";
 import {GlobalDataService}  from './service/globaldata.service';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers/reducers';
-import { NotifytemplateComponent } from './shared/notifytemplate/notifytemplate.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     GlobalsettingsComponent,
-    NotifaccordionComponent,
-    NotifytemplateComponent,
+    NotifaccordionComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +26,7 @@ import { NotifytemplateComponent } from './shared/notifytemplate/notifytemplate.
     StoreModule.forRoot(reducers),
     NgbModule.forRoot()
   ],
-  providers: [GlobalDataService],
+  providers: [AccordionDataService,GlobalDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

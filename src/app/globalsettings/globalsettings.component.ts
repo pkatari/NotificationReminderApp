@@ -16,7 +16,7 @@ import { Store } from '@ngrx/store';
 export class GlobalsettingsComponent implements OnInit {
 
     globalInfo : GetGlobalSettings[];
-    weekdays : {};
+    weekdays : ['S','M'];
     fromTime : string[];
     toTime :string[];
     globalForm: FormGroup;
@@ -38,7 +38,6 @@ export class GlobalsettingsComponent implements OnInit {
       gbVal => {
             this.globalInfo = gbVal;
             this.weekdays = this.globalInfo['weekdays'];
-            console.log(this.weekdays)
             this.fromTime = this.globalInfo['fromTime']
             this.toTime = this.globalInfo['toTime'];
             this.createForm();

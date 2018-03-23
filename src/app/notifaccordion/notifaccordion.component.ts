@@ -1,12 +1,12 @@
 import { Component, OnInit,ChangeDetectionStrategy, state } from '@angular/core';
-import { getAccordionData, AccObj } from '../model/accordion.state';
+import { AccObj } from '../model/accordion.state';
 import { FormGroup,FormControl,FormBuilder,FormArray } from '@angular/forms';
-import  { GlobalDataService }  from '../service/globaldata.service';
+import {AccordionDataService} from '../service/accordiondata.service';
 import { Observable } from 'rxjs/Observable';
 import * as fromRootReducer from '../reducers/reducers';
 import { Store } from '@ngrx/store';
 import { GetGlobalSettings } from '../model/globalsettings.model';
-
+import { Renderer } from '@angular/core';
 @Component({
   selector: 'notification-accordion',
   templateUrl: './notifaccordion.component.html',
@@ -14,50 +14,86 @@ import { GetGlobalSettings } from '../model/globalsettings.model';
 })
 export class NotifaccordionComponent implements OnInit {
 
-  accordiondata : getAccordionData;
   accData :AccObj[];
   accordionForm : FormGroup;
+  notificationData: FormArray;
+  defaultSetState : fromRootReducer.State;
   weekdays : string[];
   fromTime : string[];
   toTime :string[];
-  defaultSetState : fromRootReducer.State;
 
-  public getDefaultGlobalSettings$: Observable<GetGlobalSettings[]>;
-
-    constructor(private formBuilder: FormBuilder,private gbData: GlobalDataService,public store: Store<fromRootReducer.State>) { 
-        this.accordiondata = new getAccordionData();
+    constructor(private accServiceData: AccordionDataService,private fb: FormBuilder,private render: Renderer,public store: Store<fromRootReducer.State>) { 
         this.createNotificationForm();
     }
 
     createNotificationForm() {
-        this.accordionForm = this.formBuilder.group({
-        });
+      this.accordionForm = this.fb.group({
+       notificationData: this.fb.array([])
+      })
     }  
 
   ngOnInit() {
-      this.accData = this.accordiondata.accData;   
-      this.gbData.getGlobalData()  
+
+    this.weekdays =  ['S','M','T','W','T','F','S'];
+    this.fromTime =  ["7:00 am","8:00 am","9:00 am","10:00 am","11:00 am","12:00 pm","1:00 pm","2:00 pm","3: 00pm","4:00 pm","5:00 pm","6:00 pm","7:00 pm"];
+    this.toTime   =  ["7:00 am","8:00 am","9:00 am","10:00 am","11:00 am","12:00 pm","1:00 pm","2:00 pm","3: 00pm","4:00 pm","5:00 pm","6:00 pm","7:00 pm"]
+
+    this.accServiceData.getAccordionData()
       .subscribe(
-       gbVal => {
-        console.log("ngOninit1")
-          this.weekdays = gbVal['weekdays'];
-          this.fromTime = gbVal['fromTime']
-          this.toTime =  gbVal['toTime'];
+      gbVal => {
+        this.accData = gbVal;
+          this.patchForm();
         },
         err => {
           console.log(err);
         }
       );
   }
-
-  restToGlobalSettings() {
-    console.log("Reset to Global Settings clicked...");
-
-this.store.subscribe((appState) => {
-console.log(this.defaultSetState);
-this.defaultSetState  = appState;
-console.log("this.defaultSetState"); 
-});
+  patchForm() {
+    let control = <FormArray>this.accordionForm.controls.notificationData;
+    this.accData.forEach(x => {
+         var accRepeatDays = x.accrepeat;
+      control.push(this.fb.group({
+        duringTime: x.accfromTime,
+        toSelectTime :x.accToTime,
+        titleAccordion : x.acctitle,
+        weekday : [x.accrepeat],
+        elapsedTime : x.timeRoundInfo       
+      }));
+       
+    })
   }
 
+  listClick(event, weekValue,i) {  
+    let found = false;
+
+        this.render.setElementClass(event.target, "active-apply", true); 
+  
+ }
+  restToGlobalSettings() {
+    console.log("Reset to Global Settings clicked...");
+    this.store.subscribe((appState) => {
+        console.log(this.defaultSetState);
+        this.defaultSetState  = appState;
+        console.log("this.defaultSetState"); 
+    });
+  }
+
+  saveAccordionData(event,i) {
+      console.log("Save Accordion Data");
+    //  console.log(this.accordionForm.value.notificationData[i].duringTime);
+    
+      //console.log(this.accordionForm)
+  }
+
+  dontSaveAccordionData(event) {
+       console.log("Dont Save Accordion Data");
+  }
+
+  applyActiveClass(week) {
+      console.log(week)
+  }
+
+
 }
+ 
