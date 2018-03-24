@@ -9,7 +9,7 @@
         border: 1px solid $lightgr-color;
         padding: 2em;
         border-radius: 1em;
-        max-width: 50em;
+        width: 60%;
         @include globalstyle();
     }    
 }
@@ -27,4 +27,30 @@
     border: 1px solid $blue-color;
 }
 
+@media only screen and (max-width: 320px)  {
+    .form-settings {
+        width: 100% !important;
+        padding: 2em 1em 2em 1em !important;
+        .title-text {
+            padding-left: 3.5em !important;
+            font-size: 1.5em;
+        }
+        ul {
+            padding-left: 0 !important;
+            position: static !important;
+            margin: 0.5em 0 3em 0 !important;
+                .days-style {  
+                @include positionset(inline,static,0);
+            }
+        }
+        .during-time {
+            margin: 0 0.3em 0em 0em!important
+        }
+        .submit-button {
+            right: -4em !important;
+            top: 1em;
+            left: 5em;            
+        }
+    }
+}
 

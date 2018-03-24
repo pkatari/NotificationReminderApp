@@ -6,18 +6,18 @@
                 <ngb-accordion [closeOthers]="true" activeIds="acc-3" *ngFor="let d of accordionForm.controls.notificationData.controls; let i=index" formGroupName="{{i}}">                    
                     <ngb-panel id="acc-{{i}}">
                         <ng-template ngbPanelTitle>
-                                <input  disabled class="title-accordion" formControlName="titleAccordion" />
-                                        <button type="button" class="btn btn-link" (click)="saveAccordionData($event,i)">Save</button>
-                                        <button type="button" class="btn btn-link" (click)="dontSaveAccordionData($event)">Close</button>
+                            <input  disabled class="title-accordion" formControlName="titleAccordion" />
+                            <button type="button" class="btn btn-link" (click)="saveAccordionData($event,i)">Save</button>
+                            <button type="button" class="btn btn-link" (click)="dontSaveAccordionData($event)">Close</button>
                         </ng-template>
                         <ng-template ngbPanelContent>                                 
                             <div class="form-settings ">
                                 <div class="pull-left">                                      
                                     <div> 
-                                        Repeat On
+                                        <span class="title-text">Repeat On</span>
                                         <ul>
-                                            <li FormArrayName="weekday" class="days-style" *ngFor="let week1 of weekdays;let i='index'"> 
-                                                <a [ngClass]="applyActiveClass(week1) ? 'active-apply' : ''" (click)="listClick($event, week1,i)">{{week1}}</a>
+                                            <li FormArrayName="weekday" class="days-style" *ngFor="let week1 of weekdays;let j='index'"> 
+                                                <a [ngClass]="applyActiveClass(week1,j) ? 'active-apply' : ''" (click)="listClick($event, week1,i)">{{week1}}</a>
                                             </li>
                                         </ul>     
                                     </div>

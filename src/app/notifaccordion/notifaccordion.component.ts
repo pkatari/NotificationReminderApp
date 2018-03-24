@@ -76,34 +76,48 @@ export class NotifaccordionComponent implements OnInit {
   }
 
   restToGlobalSettings(i) {
+   
     this.store.select('getSettingsData').subscribe((appState) => {
         this.globalStoreData = appState;
     });
+     console.log(this.globalStoreData)
+    console.log("reset to global settingssssss........................")
   
     const controlArray = <FormArray> this.accordionForm.get('notificationData');
-    controlArray.controls[i].get('duringTime').setValue(this.globalStoreData['toSelectTime']);
+    controlArray.controls[i].get('duringTime').setValue(this.globalStoreData['duringTime']);
     controlArray.controls[i].get('toSelectTime').setValue(this.globalStoreData['toSelectTime']);
-    controlArray.controls[i].get('weekday').setValue(this.globalStoreData['weekday']);
-    console.log(this.accordionForm.value)
+  //  controlArray.controls[i].get('weekday').setValue(this.globalStoreData['weekday']);
+    console.log(this.accordionForm.value);
+   // this.accordionForm.value.notificationData[i].weekday = this.globalStoreData['weekday'];
+
 
   }
 
   saveAccordionData(event,i) {
       console.log("Save Accordion Data");
-      console.log(this.accordionForm)
-    //  console.log(this.accordionForm.value.notificationData[i].duringTime);
-    
-      //console.log(this.accordionForm)
+      console.log(this.accordionForm);
+    //console.log(this.accordionForm.value.notificationData[i].duringTime);    
+    //console.log(this.accordionForm)
   }
 
   dontSaveAccordionData(event) {
       console.log("Dont Save Accordion Data");
   }
 
-  applyActiveClass(week) {
-    //  console.log(week)
+  applyActiveClass(week,index) {
+    let found = false;
+    this.accData.forEach(x => {
+        x.accrepeat.forEach(element => {
+          if(x.accrepeat.indexOf(element) == index) {
+            found = true;
+            return true;
+          } 
+        });
+        if(found) {
+          return true;
+        }
+     });
+     return found;
   }
-
-
 }
  
