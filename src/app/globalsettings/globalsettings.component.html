@@ -5,24 +5,28 @@
     <section *ngIf="globalForm">
     <form [formGroup]="globalForm" (ngSubmit)="onSubmit()" novalidate>
         <div class="form-settings">
-            <div> 
-                <span class="title-text">Repeat On</span>
+            <div class="row"> 
+                <div class="title-text">Repeat On</div>
                 <ul>
                     <li class="days-style" *ngFor="let week1 of weekdays;let i='index'"> 
                         <a  (click)="listClick($event, week1,i)">{{week1}}</a>
                     </li>
                 </ul>     
+             </div>
+             <div class="row"> 
+                <label>During</label>
+                <select formControlName="duringTime" class="during-time">
+                    <option  *ngFor="let duringTime of fromTime"  [value]="duringTime">{{duringTime}}</option>
+                </select>  
+                <label>to</label>    
+                <select formControlName="toSelectTime" class="to-time">
+                    <option *ngFor="let toSelectTime of toTime" [value]="toSelectTime">{{toSelectTime}}</option>
+                 </select> 
+                <button type="submit" class="btn submit-button" [disabled]="globalForm.pristine">Apply</button>
             </div>
-            <label>During</label>
-            <select formControlName="duringTime" class="during-time">
-                <option  *ngFor="let duringTime of fromTime"  [value]="duringTime">{{duringTime}}</option>
-            </select>     
-            <label>to</label>    
-            <select formControlName="toSelectTime" class="to-time">
-                <option *ngFor="let toSelectTime of toTime" [value]="toSelectTime">{{toSelectTime}}</option>
-            </select> 
-            <button type="submit" class="btn submit-button" [disabled]="globalForm.pristine">Apply</button>
+         
         </div>
+    
     </form>
 </section> 
 </div>

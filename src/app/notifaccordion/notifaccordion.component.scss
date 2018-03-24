@@ -28,10 +28,44 @@
      
         .pull-right {
            flex-grow: 3;
-          
+            ul {
+                .days-style {       
+                    .child-arrow {
+                        border-bottom: 3px dotted blue;
+                        padding-left: 2em;
+                        position: relative;
+                        top: -1em;
+                    }
+                    &:last-child {
+                        .child-arrow {
+                            padding-left: 0em;
+                        }
+                    }  
+                } 
+            }     
+            .day-frequency {
+                display: flex;
+                div {
+                    width:6em;
+                    margin-left: -2em;
+                    &:first-child {
+                        margin-left: 9em;
+                    }
+                }
+                .input-field {
+                    width: 40%;
+                    padding-left: 1em;
+                }
+            }       
         }
         .pull-left {
             flex-grow: 1;
+            .during-time {
+                margin: 0 2em 0 4em;
+            }
+            .to-time {
+                margin: 0 8em 0 1em;
+            }
         }
     }
     
@@ -41,11 +75,6 @@
     position: relative;
     top: 1.2em;
     left: 13em;
-}
-
-.input-field {
-    width: 10%;
-    margin-right: 1em;
 }
 
 .active-apply {
@@ -70,6 +99,16 @@
             .during-time {
               padding: 0! important;
             }
+            .pull-right {
+                .day-frequency {
+                    margin: 1em !important;
+                    div {
+                        &:first-child {
+                            margin-left: 0em !important;
+                        }
+                    }
+                }      
+            }
         }
         .reset-button {
             margin-bottom: 2em !important;
@@ -77,3 +116,5 @@
         }
     }
 }
+
+

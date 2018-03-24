@@ -13,7 +13,7 @@
                         <ng-template ngbPanelContent>                                 
                             <div class="form-settings ">
                                 <div class="pull-left">                                      
-                                    <div> 
+                                    <div class="row"> 
                                         <span class="title-text">Repeat On</span>
                                         <ul>
                                             <li FormArrayName="weekday" class="days-style" *ngFor="let week1 of weekdays;let j='index'"> 
@@ -21,31 +21,38 @@
                                             </li>
                                         </ul>     
                                     </div>
-                                    <label>During</label>
-                                    <select formControlName="duringTime" class="during-time"> 
-                                        <option *ngFor="let duringTime of fromTime" [value]="duringTime">{{duringTime}}</option>
-                                    </select>     
-                                    <label>to</label>    
-                                    <select formControlName="toSelectTime"  class="to-time">
-                                        <option *ngFor="let toSelectTime of toTime" [value]="toSelectTime">{{toSelectTime}}</option>
-                                    </select> 
+                                    <div class="row"> 
+                                        <label>During</label>
+                                        <select formControlName="duringTime" class="during-time"> 
+                                            <option *ngFor="let duringTime of fromTime" [value]="duringTime">{{duringTime}}</option>
+                                        </select>     
+                                        <label>to</label>    
+                                        <select formControlName="toSelectTime"  class="to-time">
+                                            <option *ngFor="let toSelectTime of toTime" [value]="toSelectTime">{{toSelectTime}}</option>
+                                        </select> 
+                                    </div>
                                     <div class="reset-button">
                                         <button type="button" class="btn btn-link" (click)="restToGlobalSettings(i)">Reset to Global Settings</button>
                                     </div>
                                 </div>
                          
                                 <div class="pull-right">
-                                    <div> 
-                                        Elapse Time
+                                    <div class="row"> 
+                                        Elapse Time Rounds
                                         <ul>
                                             <li class="days-style" *ngFor="let round of elapseTimeRounds">
                                                 <a>{{round}}</a>
+                                                <span class="child-arrow"></span>
                                             </li>
                                         </ul> 
+                                      
                                     </div>
-                                    <div class="day-frequency">  
-                                        <div FormArrayName="daysFrequency" *ngFor="let freq of d.daysFrequency">
-                                            <input  class="input-field" type="text" value ="{{freq}}" name="username"title="Enter username"/>                                        
+                                    <div class="row">
+                                        Day(s)
+                                        <div class="day-frequency">  
+                                            <div FormArrayName="daysFrequency" *ngFor="let freq of daysFrequencyData">
+                                                <input  class="input-field" type="text" value ="{{freq}}" name="username"/>                                        
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

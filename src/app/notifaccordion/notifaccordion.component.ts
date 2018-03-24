@@ -23,7 +23,8 @@ export class NotifaccordionComponent implements OnInit {
   toTime :string[];
   elapseTimeRounds : number[];
   globalStoreData : {}
-  
+  daysFrequencyData : number[];
+
     constructor(private accServiceData: AccordionDataService,private fb: FormBuilder,private render: Renderer,public store: Store<fromRootReducer.State>) { 
         this.createNotificationForm();
     }
@@ -66,7 +67,8 @@ export class NotifaccordionComponent implements OnInit {
         titleAccordion : x.acctitle,
         weekday : [x.accrepeat],
         daysFrequency :[daysFrequency]
-      }));      
+      }));  
+      this.daysFrequencyData = daysFrequency;    
     })
   }
 
