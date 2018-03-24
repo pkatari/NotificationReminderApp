@@ -27,7 +27,8 @@
     border: 1px solid $blue-color;
 }
 
-@media only screen and (max-width: 320px)  {
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+
     .form-settings {
         width: 100% !important;
         padding: 2em 1em 2em 1em !important;
@@ -53,4 +54,5 @@
         }
     }
 }
+  
 
