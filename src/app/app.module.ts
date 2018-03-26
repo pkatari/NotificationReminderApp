@@ -13,12 +13,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { DataBaseEffects} from './effect/db.notification';
 import { HttpClientModule } from '@angular/common/http';
+import { ObjectIterable } from './pipe/objectiterator';
 
 @NgModule({
   declarations: [
     AppComponent,
     GlobalsettingsComponent,
-    NotifaccordionComponent
+    NotifaccordionComponent,
+    ObjectIterable
   ],
   imports: [
     BrowserModule,
