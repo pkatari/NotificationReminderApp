@@ -16,6 +16,8 @@ export function globalApplyReducer(state: GetGlobalSettings[]= [], action:Action
         return state;
     }
 }
+
+//This reducer is triggered when global settings update is successful.
 export function globalUpdateReducer(state: GlobalUpdateState[]= [], action:Action) {
 
     switch (action.type) {
