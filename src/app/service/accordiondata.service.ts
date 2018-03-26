@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, Response} from "@angular/http";
+import { HttpClient } from '@angular/common/http';
 import {Observable} from "rxjs/Observable";
 import "rxjs/Rx";
 import { AccordionState } from "../model/accordion.state";
@@ -8,16 +8,12 @@ import { AccordionState } from "../model/accordion.state";
 export class AccordionDataService {
     accData : {}
     private accDataGlobal = '../../assets/accordionstate.json';
-    constructor(private http: Http) {
+    constructor(private http: HttpClient) {
     }
  
-     getAccordionData(): Observable<AccordionState[]> {
-         return this.http
-             .get(this.accDataGlobal)
-             .map((response: Response) => {
-                 return <AccordionState[]>response.json();
-             })
-             .catch(this.handleError);
+     getAccordionData(): Observable<any> {
+         return this.http.get(this.accDataGlobal);
+        
     }
 
     updateAcordionData(globaldata : {}) : Observable<{}> {
