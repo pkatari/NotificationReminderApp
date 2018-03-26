@@ -2,7 +2,7 @@
     {
         "id":1, 
         "titleAccordion" : "App downloaded,not registered",
-        "weekday" : ["S","M"],
+        "weekday" : ["Sun","Mon"],
         "duringTime" : "10:00 am",
         "toSelectTime": "7:00 pm",
         "daysFrequency": [2,3,4,6]
@@ -10,7 +10,7 @@
     { 
         "id":2, 
         "titleAccordion" : "Registered,assessment not started",
-        "weekday" : ["S","M"],
+        "weekday" : ["Tue","Wed"],
         "duringTime" : "11:00 am",
         "toSelectTime": "7:00 pm",
         "daysFrequency": [24,2,21,6]
@@ -19,7 +19,7 @@
     { 
         "id":3, 
         "titleAccordion" : "Assessment completed,next steps",
-        "weekday" : ["M","T"],
+        "weekday" : ["Fri","Sat"],
         "duringTime" : "9:00 am",
         "toSelectTime": "7:00 pm",
         "daysFrequency": [21,13,4,6]
@@ -27,7 +27,7 @@
     { 
         "id":4, 
         "titleAccordion" : "Assessment started not completed  Finish your assessment",
-        "weekday" : ["S","W"],
+        "weekday" : ["Tue","Wed"],
         "duringTime" : "10:00 am",
         "toSelectTime": "7:00 pm",
         "daysFrequency": [12,3,4,6]

@@ -8,8 +8,8 @@
             <div class="row"> 
                 <div class="title-text">Repeat On</div>
                 <ul>
-                    <li class="days-style" *ngFor="let week1 of weekdays;let i='index'"> 
-                        <a  (click)="listClick($event, week1,i)">{{week1}}</a>
+                    <li class="days-style" *ngFor="let week1 of weekdays | ObjectIterable;let i='index'"> 
+                        <a  (click)="listClick($event, week1.key,i)">{{week1.val}}</a>
                     </li>
                 </ul>     
              </div>

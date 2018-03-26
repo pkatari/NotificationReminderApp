@@ -19,8 +19,8 @@
                                     <div class="row"> 
                                         <span class="title-text">Repeat On</span>
                                         <ul>
-                                            <li FormArrayName="weekday" class="days-style" *ngFor="let week1 of weekdays;let j='index'"> 
-                                                <a class="week-{{j}}-{{i}}" [ngClass]="applyActiveClass(week1,j,i) ? 'active-apply' : ''" (click)="listClick($event, week1,j)">{{week1}}</a>
+                                            <li FormArrayName="weekday" class="days-style" *ngFor="let week1 of weekdays | ObjectIterable;let j='index'"> 
+                                                <a class="week-{{j}}-{{i}}" [ngClass]="applyActiveClass(week1.key,d.value.weekday,j,i) ? 'active-apply' : ''" (click)="listClick($event, week1.key,j)">{{week1.val}}</a>
                                             </li>
                                         </ul>     
                                     </div>

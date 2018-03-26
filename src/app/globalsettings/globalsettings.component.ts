@@ -16,14 +16,22 @@ import * as globalConst from '../constants/globalConstants';
 export class GlobalsettingsComponent implements OnInit {
 
     globalInfo : GetGlobalSettings[];
-    weekdays : string[];
+    weekdays : {};
     fromTime : string[];
     toTime :string[];
     globalForm: FormGroup;
     constructor(private formBuilder: FormBuilder,private render: Renderer,public store: Store<fromRootReducer.State>) { 
     }
 
-    createForm() {
+    ngOnInit() {
+        this.weekdays = globalConst.WeekObj;
+        this.fromTime = globalConst.fromTime;
+        this.toTime = globalConst.toTime;
+        this.createForm();
+    }
+
+   //This method is incoked to create globalForm.
+    private createForm() {
         this.globalForm = this.formBuilder.group({
         weekday : new FormArray([]),
         duringTime: '7:00 am',
@@ -31,33 +39,29 @@ export class GlobalsettingsComponent implements OnInit {
       });
     }
 
-    ngOnInit() {
-        this.weekdays = globalConst.weekdays;
-        this.fromTime = globalConst.fromTime;
-        this.toTime = globalConst.toTime;
-        this.createForm();
-    }
-
-   listClick(event, weekValue,i) {  
+    private listClick(event, weekValue,i) {  
         let found = false;
         this.globalForm.value.weekday.forEach(element => {
-        if(element == i) {
+        if(element == weekValue) {
             found = true;
         } 
       });
       if(found) {
           this.render.setElementClass(event.target, "active-apply", false); 
-          var index =  this.globalForm.value.weekday.indexOf(i);
+          var index =  this.globalForm.value.weekday.indexOf(weekValue);
           if (index > -1) {
             this.globalForm.value.weekday.splice(index, 1);
           }
        }  else {
-          this.globalForm.value.weekday.push(i);
+          this.globalForm.value.weekday.push(weekValue);
           this.render.setElementClass(event.target, "active-apply", true); 
        } 
    }
-
-    onSubmit() {
+    
+   /*On click of 'Apply' Buton,onSubmit method is called which dispatch
+   an action UpdateGlobalSettings which will call effect which in turn will 
+   invoke service to store data */
+    private onSubmit() {
       console.log(this.globalForm.value);
       //Dispatch action on submit
       this.store.dispatch(new FromActions.UpdateGlobalSettings(this.globalForm.value));

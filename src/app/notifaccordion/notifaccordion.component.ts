@@ -22,7 +22,7 @@ export class NotifaccordionComponent implements OnInit {
   accordionForm : FormGroup;
   notificationData: FormArray;
   defaultSetState : fromRootReducer.State;
-  weekdays : string[];
+  weekdays : {};
   fromTime : string[];
   toTime :string[];
   elapseTimeRounds : number[];
@@ -33,14 +33,8 @@ export class NotifaccordionComponent implements OnInit {
     this.createNotificationForm();
   }
 
-  createNotificationForm() {
-    this.accordionForm = this.fb.group({
-      notificationData: this.fb.array([])
-    })
-  }  
-
   ngOnInit() {
-    this.weekdays = globalConst.weekdays;
+    this.weekdays = globalConst.WeekObj;
     this.fromTime = globalConst.fromTime;
     this.toTime = globalConst.toTime;   
     this.elapseTimeRounds = globalConst.elapseTimeRounds;
@@ -56,10 +50,18 @@ export class NotifaccordionComponent implements OnInit {
     );
   }
 
-  patchForm() {
+  //To create Accordion Notification Form.
+  private createNotificationForm() {
+    this.accordionForm = this.fb.group({
+      notificationData: this.fb.array([])
+    })
+  }  
+
+  /*This method is invoked to patch the value received from store to the
+  reactive accordionForm */
+  private patchForm() {
     let control = <FormArray>this.accordionForm.controls.notificationData;
     this.accData.forEach((x,i)=> {
-      var accRepeatDays = x.weekday;
       control.push(this.fb.group({
         id:x.id,
         duringTime: x.duringTime,
@@ -71,54 +73,58 @@ export class NotifaccordionComponent implements OnInit {
     });
   }
 
-  listClick(event, weekValue,i) {  
+  private listClick(event, weekValue,i) {  
+    console.log(weekValue)
     let found = false;
     let weekSelected;
     this.render.setElementClass(event.target, "active-apply", true); 
 
   }
-
-  restToGlobalSettings(i) {
+  
+  /* 
+  On click of Reset to Global Settings button,resetToGlobalSettings method is called 
+  which will reset notification to global settings
+  */
+  private restToGlobalSettings(i) {
 
     //Subscribe to global settings data
     this.store.select('updateSettingsData').subscribe((appState) => {
       this.globalStoreData = appState;
     });
+
     const controlArray = <FormArray> this.accordionForm.get('notificationData');
     controlArray.controls[i].get('duringTime').setValue(this.globalStoreData['duringTime']);
     controlArray.controls[i].get('toSelectTime').setValue(this.globalStoreData['toSelectTime']);
     console.log(this.accordionForm.value);
-    let globalArray = [];
-
-    for(var j in this.globalStoreData['weekday']) {
-      let val = this.globalStoreData['weekday'][j];
-      globalArray.push(this.weekdays[val]);
-    }
-    controlArray.controls[i].get('weekday').setValue(globalArray);
+ 
+    controlArray.controls[i].get('weekday').setValue(this.globalStoreData['weekday']);
     console.log(this.accordionForm.value);
   }
 
-  saveAccordionData(event,i) {
+  /* On click of checkmark icon, accordion notification data is saved.
+  */
+  private saveAccordionData(event,i) {
     console.log("Save Accordion Data");
     if (window.confirm("Do you want to update notification information?")) { 
       console.log(this.accordionForm.get('notificationData').value[i]);
 
-      //Dispatch action on save
+    /*Event UpdateAccordionData will be dispatched which call effect which inturn will call service to save data.*/
    this.store.dispatch(new FromActions.UpdateAccordionData(this.accordionForm.get('notificationData').value[i]));
     }  else {
       console.log("Data is not saved")
     }
   }
 
-  dontSaveAccordionData(event) {
+  private dontSaveAccordionData(event) {
     console.log("Dont Save Accordion Data");
   }
 
-  applyActiveClass(week,index) {
+  private applyActiveClass(week,dayInNotification,index,i) {
+
     let found = false;
-      this.accData.forEach(x => {
-        x.weekday.forEach(element => {
-          if(x.weekday.indexOf(element) == index) {
+    
+       dayInNotification.forEach(element => {
+          if(dayInNotification.indexOf(element) == index) {
             found = true;
             return true;
           } 
@@ -126,11 +132,12 @@ export class NotifaccordionComponent implements OnInit {
         if(found) {
           return true;
         }
-     });
+     
      return found; 
    }
 
-  toggleAccordian( props:NgbPanelChangeEvent,$event,i): void{    
+  //This method is invoked once user clicks on accordion panel.
+  private toggleAccordian( props:NgbPanelChangeEvent,$event,i): void{    
     const saveElement = this.renderer.selectRootElement(`.acc-save${i}`); 
     const closeElement = this.renderer.selectRootElement(`.acc-close${i}`);
     
@@ -147,15 +154,11 @@ export class NotifaccordionComponent implements OnInit {
     }
  }
 
- freqChange(event,index,i) {
-    console.log(event.target.value)
-    console.log(index);
-    console.log(i);
+private freqChange(event,index,i) {
     let freqChangeValue = [];
     const controlArray = <FormArray> this.accordionForm.get('notificationData');
     freqChangeValue = controlArray.controls[i].get('daysFrequency').value;
     freqChangeValue[index] = +event.target.value;
-    console.log(freqChangeValue)
     controlArray.controls[i].get('daysFrequency').setValue(freqChangeValue);
  }
 }
