@@ -12,7 +12,8 @@
                                     <p class="acc-close{{i}} accCloseHide"></p>               
                                 </div>          
                         </ng-template>
-                        <ng-template ngbPanelContent>                                 
+                        <ng-template ngbPanelContent>    
+                            <div>{{d.value.weekday}}</div>                         
                             <div class="form-settings ">
                                 <div class="pull-left">                                      
                                     <div class="row"> 
@@ -50,12 +51,12 @@
                                       
                                     </div>
                                     <div class="row">
-                                        Day(s)
-                                        <div class="day-frequency">  
-                                            <div FormArrayName="daysFrequency" *ngFor="let freq of daysFrequencyData;let index=index">
-                                                <input  class="input-field" type="text" value="{{freq}}" (change)="freqChange($event,index,i)"/>                                        
+                                        Day(s)  
+                                            <div class="day-frequency">  
+                                                <div FormArrayName="daysFrequency" *ngFor="let freq of d.value.daysFrequency;let index=index">
+                                                    <input  class="input-field" type="text" value="{{freq}}" (change)="freqChange($event,index,i)"/>                                        
+                                                </div>
                                             </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

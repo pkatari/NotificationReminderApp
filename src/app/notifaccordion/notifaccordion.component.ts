@@ -28,7 +28,6 @@ export class NotifaccordionComponent implements OnInit {
   elapseTimeRounds : number[];
   globalStoreData : {}
   daysFrequencyData : number[];
-  classToggle : boolean;
 
   constructor(private renderer: Renderer2, private accServiceData: AccordionDataService,private fb: FormBuilder,private render: Renderer,public store: Store<fromRootReducer.State>) { 
     this.createNotificationForm();
@@ -59,21 +58,16 @@ export class NotifaccordionComponent implements OnInit {
 
   patchForm() {
     let control = <FormArray>this.accordionForm.controls.notificationData;
-    this.accData.forEach(x => {
+    this.accData.forEach((x,i)=> {
       var accRepeatDays = x.weekday;
-      var daysFrequency =[];
-      for(var i in x.daysFrequency) {
-        daysFrequency.push(x.daysFrequency[i]);
-      }
       control.push(this.fb.group({
         id:x.id,
         duringTime: x.duringTime,
         toSelectTime :x.toSelectTime,
         titleAccordion : x.titleAccordion,
-        weekday : [x.weekday ],
-        daysFrequency :[x.daysFrequency]
+        weekday : [x.weekday],
+        daysFrequency : [x.daysFrequency]
       })); 
-      this.daysFrequencyData = daysFrequency;   
     });
   }
 
