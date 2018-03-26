@@ -8,9 +8,10 @@ export class GetGlobalSettingsModel implements GetGlobalSettings {
     weekdays  : string[];
     toTime : string[];
     fromTime : string[];
-    constructor() {
-        this.weekdays  = [];
-        this.toTime = [];
-        this.fromTime = [];
-    }
+    constructor() {}
+}
+export interface GlobalUpdateState  {
+    weekday  : string[]
+    duringTime : '';
+    toSelectTime : '';
 }

@@ -3,12 +3,14 @@
     <section *ngIf="accordionForm">
         <form [formGroup]="accordionForm" (ngSubmit)="onSubmit()" novalidate>  
             <div formArrayName="notificationData">
-                <ngb-accordion [closeOthers]="true" activeIds="acc-3" *ngFor="let d of accordionForm.controls.notificationData.controls; let i=index" formGroupName="{{i}}">                    
+                <ngb-accordion (panelChange)="toggleAccordian($event,$event,i)" [closeOthers]="true"  *ngFor="let d of accordionForm.controls.notificationData.controls; let i=index" formGroupName="{{i}}">                    
                     <ngb-panel id="acc-{{i}}">
-                        <ng-template ngbPanelTitle>
-                            <input  disabled class="title-accordion" formControlName="titleAccordion" />
-                            <button type="button" class="btn btn-link" (click)="saveAccordionData($event,i)">Save</button>
-                            <button type="button" class="btn btn-link" (click)="dontSaveAccordionData($event)">Close</button>
+                        <ng-template ngbPanelTitle>     
+                                <input disabled class="title-accordion" formControlName="titleAccordion"/>
+                                <div class="align-icon">
+                                    <p class="acc-save{{i}} accSaveHide" (click)="saveAccordionData($event,i)"></p>
+                                    <p class="acc-close{{i}} accCloseHide"></p>               
+                                </div>          
                         </ng-template>
                         <ng-template ngbPanelContent>                                 
                             <div class="form-settings ">
@@ -17,7 +19,7 @@
                                         <span class="title-text">Repeat On</span>
                                         <ul>
                                             <li FormArrayName="weekday" class="days-style" *ngFor="let week1 of weekdays;let j='index'"> 
-                                                <a [ngClass]="applyActiveClass(week1,j) ? 'active-apply' : ''" (click)="listClick($event, week1,i)">{{week1}}</a>
+                                                <a class="week-{{j}}-{{i}}" [ngClass]="applyActiveClass(week1,j,i) ? 'active-apply' : ''" (click)="listClick($event, week1,j)">{{week1}}</a>
                                             </li>
                                         </ul>     
                                     </div>
@@ -50,8 +52,8 @@
                                     <div class="row">
                                         Day(s)
                                         <div class="day-frequency">  
-                                            <div FormArrayName="daysFrequency" *ngFor="let freq of daysFrequencyData">
-                                                <input  class="input-field" type="text" value ="{{freq}}" name="username"/>                                        
+                                            <div FormArrayName="daysFrequency" *ngFor="let freq of daysFrequencyData;let index=index">
+                                                <input  class="input-field" type="text" value="{{freq}}" (change)="freqChange($event,index,i)"/>                                        
                                             </div>
                                         </div>
                                     </div>

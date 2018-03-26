@@ -82,6 +82,36 @@
     color: $white-color !important;
 }
 
+.accSaveShow {
+   display: block;
+   margin-right: 2em;
+   &::after {
+    content: "\2714";
+   }
+}
+
+.accCloseShow {
+    display: block;
+    &::after {
+     content: "\2716";
+    }
+}
+
+.align-icon {
+    float: right;
+    margin-right: 32em;
+    display: flex;
+}
+
+.accSaveHide,.accCloseHide{
+  display: none;
+} 
+
+.active-disable {
+    background: lightgray !important;
+    color: black !important;
+}
+
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
     .accordion-list {
         margin-top: 3em;
@@ -116,5 +146,3 @@
         }
     }
 }
-
-

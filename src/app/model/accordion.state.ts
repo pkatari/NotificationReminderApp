@@ -1,9 +1,9 @@
 
-export interface AccObj {
+export interface AccordionState {
     id : number
-    acctitle : string;
-    accrepeat : string[];
-    accfromTime : string;
-    accToTime : string;
-    timeRoundInfo : {};
+    titleAccordion: string;
+    weekday : string[];
+    duringTime : string;
+    toSelectTime : string;
+    daysFrequency : number[];
  }

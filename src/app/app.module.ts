@@ -11,6 +11,8 @@ import { GlobalDataService }  from './service/globaldata.service';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { DataBaseEffects} from './effect/db.notification';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),
+    EffectsModule.forRoot([DataBaseEffects]),
     NgbModule.forRoot()
   ],
   providers: [AccordionDataService,GlobalDataService],

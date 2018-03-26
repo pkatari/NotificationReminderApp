@@ -1,10 +1,10 @@
 
-import { GetGlobalSettings } from '../model/globalsettings.model';
-import { Action,createSelector,createFeatureSelector  } from '@ngrx/store';
+import { GetGlobalSettings,GlobalUpdateState } from '../model/globalsettings.model';
+import { Action } from '@ngrx/store';
 
 import * as FromActions from '../actions/global.action';
 
-export type Action = FromActions.GetGlobalApplySettings;
+export type Action = FromActions.GlobalAll;
 
 export function globalApplyReducer(state: GetGlobalSettings[]= [], action:Action) {
 
@@ -16,4 +16,13 @@ export function globalApplyReducer(state: GetGlobalSettings[]= [], action:Action
         return state;
     }
 }
+export function globalUpdateReducer(state: GlobalUpdateState[]= [], action:Action) {
 
+    switch (action.type) {
+    case FromActions.GlOBAL_SETTINGS_UPDATE_SUCCESS: 
+        return action['payload'];
+    
+    default:
+        return state;
+    }
+}

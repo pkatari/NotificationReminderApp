@@ -6,6 +6,7 @@ import { GetGlobalSettings } from "../model/globalsettings.model";
  
 @Injectable()
 export class GlobalDataService {
+    globalData : {};
     private dataGlobal = '../../assets/globalsetting.json';
     constructor(private http: Http) {
     }
@@ -17,6 +18,14 @@ export class GlobalDataService {
                  return <GetGlobalSettings[]>response.json();
             })
             .catch(this.handleError);
+    }
+
+    updateGlobalData(globaldata : {}) : Observable<{}> {
+        console.log("Inside Service..Update Global Data")
+       this.globalData =globaldata;
+       console.log(this.globalData);
+       console.log("Data is Updated..........");
+       return Observable.of(this.globalData);;
     }
  
     private handleError(error: Response) {
