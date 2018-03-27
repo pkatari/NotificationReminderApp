@@ -3,7 +3,7 @@ import 'rxjs/add/operator/map';
 import { GetGlobalSettings} from '../model/globalsettings.model';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import * as FromActions from '../actions/global.action';
-import { Renderer } from '@angular/core';
+import { Renderer2} from '@angular/core';
 import * as fromRootReducer from '../reducers/reducers';
 import { Store } from '@ngrx/store';
 import * as globalConst from '../constants/globalConstants';
@@ -20,7 +20,8 @@ export class GlobalsettingsComponent implements OnInit {
     fromTime: string[];
     toTime: string[];
     globalForm: FormGroup;
-    constructor(private formBuilder: FormBuilder, private render: Renderer, public store: Store<fromRootReducer.State>) {
+    constructor(private renderer: Renderer2, private formBuilder: FormBuilder,
+        public store: Store<fromRootReducer.State>) {
     }
 
     ngOnInit() {
@@ -47,14 +48,14 @@ export class GlobalsettingsComponent implements OnInit {
         }
       });
       if (found) {
-          this.render.setElementClass(event.target, 'active-apply', false);
+          this.renderer.removeClass(event.target, 'active-apply');
           const index =  this.globalForm.value.weekday.indexOf(weekValue);
           if (index > -1) {
             this.globalForm.value.weekday.splice(index, 1);
           }
        }  else {
           this.globalForm.value.weekday.push(weekValue);
-          this.render.setElementClass(event.target, 'active-apply', true);
+          this.renderer.addClass(event.target, 'active-apply');
        }
     }
    /*On click of 'Apply' Buton,onSubmit method is called which dispatch
