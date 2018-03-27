@@ -4,9 +4,11 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import * as GlobalActions from '../actions/global.action';
 import * as AccordionActions from '../actions/accordion.action';
-import 'rxjs/add/observable/from';
 import { GlobalDataService } from '../service/globaldata.service';
 import {AccordionDataService } from '../service/accordiondata.service';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class DataBaseEffects {
