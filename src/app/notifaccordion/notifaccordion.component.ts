@@ -18,16 +18,16 @@ import * as FromActions from '../actions/accordion.action';
 })
 export class NotifaccordionComponent implements OnInit {
 
-  accData :AccordionState[];
-  accordionForm : FormGroup;
+  accData: AccordionState[];
+  accordionForm: FormGroup;
   notificationData: FormArray;
-  defaultSetState : fromRootReducer.State;
-  weekdays : {};
-  fromTime : string[];
-  toTime :string[];
-  elapseTimeRounds : number[];
-  globalStoreData : {}
-  daysFrequencyData : number[];
+  defaultSetState: fromRootReducer.State;
+  weekdays: {};
+  fromTime: string[];
+  toTime: string[];
+  elapseTimeRounds: number[];
+  globalStoreData: {};
+  daysFrequencyData: number[];
 
   constructor(private renderer: Renderer2, private accServiceData: AccordionDataService,private fb: FormBuilder,private render: Renderer,public store: Store<fromRootReducer.State>) { 
     this.createNotificationForm();
@@ -36,7 +36,7 @@ export class NotifaccordionComponent implements OnInit {
   ngOnInit() {
     this.weekdays = globalConst.WeekObj;
     this.fromTime = globalConst.fromTime;
-    this.toTime = globalConst.toTime;   
+    this.toTime = globalConst.toTime;
     this.elapseTimeRounds = globalConst.elapseTimeRounds;
     this.accServiceData.getAccordionData()
     .subscribe(
@@ -50,20 +50,20 @@ export class NotifaccordionComponent implements OnInit {
     );
   }
 
-  //To create Accordion Notification Form.
+  // To create Accordion Notification Form.
   private createNotificationForm() {
     this.accordionForm = this.fb.group({
       notificationData: this.fb.array([])
-    })
+    });
   }  
 
   /*This method is invoked to patch the value received from store to the
   reactive accordionForm */
   private patchForm() {
     let control = <FormArray>this.accordionForm.controls.notificationData;
-    this.accData.forEach((x,i)=> {
-      let activeClass = [];
-      for(var key in this.weekdays) {
+    this.accData.forEach((x, i) => {
+      const activeClass = [];
+      for(const key in this.weekdays) {
         if(x.weekday.indexOf(key) > -1) {
           activeClass.push(true);
         } else {
