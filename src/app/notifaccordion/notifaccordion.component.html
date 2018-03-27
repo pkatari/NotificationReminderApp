@@ -12,15 +12,14 @@
                                     <p class="acc-close{{i}} accCloseHide"></p>               
                                 </div>          
                         </ng-template>
-                        <ng-template ngbPanelContent>    
-                            <div>{{d.value.weekday}}</div>                         
+                        <ng-template ngbPanelContent>                        
                             <div class="form-settings ">
                                 <div class="pull-left">                                      
                                     <div class="row"> 
                                         <span class="title-text">Repeat On</span>
                                         <ul>
                                             <li FormArrayName="weekday" class="days-style" *ngFor="let week1 of weekdays | ObjectIterable;let j='index'"> 
-                                                <a class="week-{{j}}-{{i}}" [ngClass]="applyActiveClass(week1.key,d.value.weekday,j,i) ? 'active-apply' : ''" (click)="listClick($event, week1.key,j)">{{week1.val}}</a>
+                                                <a class="week-{{j}}-{{i}}" [ngClass]="d.value.activeClass[j] ? 'active-apply' : ''" (click)="listClick($event, week1.key,j)">{{week1.val}}</a>
                                             </li>
                                         </ul>     
                                     </div>

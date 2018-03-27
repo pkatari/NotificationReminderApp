@@ -62,11 +62,20 @@ export class NotifaccordionComponent implements OnInit {
   private patchForm() {
     let control = <FormArray>this.accordionForm.controls.notificationData;
     this.accData.forEach((x,i)=> {
+      let activeClass = [];
+      for(var key in this.weekdays) {
+        if(x.weekday.indexOf(key) > -1) {
+          activeClass.push(true);
+        } else {
+          activeClass.push(false);
+        }
+      }
       control.push(this.fb.group({
         id:x.id,
         duringTime: x.duringTime,
         toSelectTime :x.toSelectTime,
         titleAccordion : x.titleAccordion,
+        activeClass : [activeClass],
         weekday : [x.weekday],
         daysFrequency : [x.daysFrequency]
       })); 
@@ -74,7 +83,6 @@ export class NotifaccordionComponent implements OnInit {
   }
 
   private listClick(event, weekValue,i) {  
-    console.log(weekValue)
     let found = false;
     let weekSelected;
     this.render.setElementClass(event.target, "active-apply", true); 
@@ -95,7 +103,6 @@ export class NotifaccordionComponent implements OnInit {
     const controlArray = <FormArray> this.accordionForm.get('notificationData');
     controlArray.controls[i].get('duringTime').setValue(this.globalStoreData['duringTime']);
     controlArray.controls[i].get('toSelectTime').setValue(this.globalStoreData['toSelectTime']);
-    console.log(this.accordionForm.value);
  
     controlArray.controls[i].get('weekday').setValue(this.globalStoreData['weekday']);
     console.log(this.accordionForm.value);
@@ -106,8 +113,8 @@ export class NotifaccordionComponent implements OnInit {
   private saveAccordionData(event,i) {
     console.log("Save Accordion Data");
     if (window.confirm("Do you want to update notification information?")) { 
-      console.log(this.accordionForm.get('notificationData').value[i]);
-
+      
+      let objSave = this.accordionForm.get('notificationData').value[i]; 
     /*Event UpdateAccordionData will be dispatched which call effect which inturn will call service to save data.*/
    this.store.dispatch(new FromActions.UpdateAccordionData(this.accordionForm.get('notificationData').value[i]));
     }  else {
@@ -118,23 +125,6 @@ export class NotifaccordionComponent implements OnInit {
   private dontSaveAccordionData(event) {
     console.log("Dont Save Accordion Data");
   }
-
-  private applyActiveClass(week,dayInNotification,index,i) {
-
-    let found = false;
-    
-       dayInNotification.forEach(element => {
-          if(dayInNotification.indexOf(element) == index) {
-            found = true;
-            return true;
-          } 
-        });
-        if(found) {
-          return true;
-        }
-     
-     return found; 
-   }
 
   //This method is invoked once user clicks on accordion panel.
   private toggleAccordian( props:NgbPanelChangeEvent,$event,i): void{    
