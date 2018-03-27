@@ -4,8 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ObjectIterable implements PipeTransform {
   transform(obj: Object) {
-    var a = [];
-    for (var key in obj) {
+    const a = [];
+    for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
         a.push({key: key, val: obj[key]});
       }

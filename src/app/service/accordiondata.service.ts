@@ -14,7 +14,7 @@ export class AccordionDataService {
     }
 
     updateAcordionData(globaldata: {}): Observable<{}> {
-       this.accData =globaldata;
+       this.accData = globaldata;
        console.log(this.accData);
        return Observable.of(this.accData);
     }
