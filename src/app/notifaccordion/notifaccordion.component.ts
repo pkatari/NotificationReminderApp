@@ -10,11 +10,13 @@ import { Renderer2, ElementRef } from '@angular/core';
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as globalConst from '../constants/globalConstants';
 import * as FromActions from '../actions/accordion.action';
+import { ObjectIterable } from '../pipe/objectiterator';
 
 @Component({
   selector: 'app-notification-accordion',
   templateUrl: './notifaccordion.component.html',
-  styleUrls: ['./notifaccordion.component.scss']
+  styleUrls: ['./notifaccordion.component.scss'],
+  providers : [ObjectIterable]
 })
 export class NotifaccordionComponent implements OnInit {
 
@@ -29,7 +31,8 @@ export class NotifaccordionComponent implements OnInit {
   globalStoreData: {};
   daysFrequencyData: number[];
 
-  constructor(private renderer: Renderer2, private accServiceData: AccordionDataService,
+  constructor(private renderer: Renderer2, private objIterable: ObjectIterable,
+    private accServiceData: AccordionDataService,
     private fb: FormBuilder, public store: Store<fromRootReducer.State>) {
     this.createNotificationForm();
   }
@@ -83,23 +86,57 @@ export class NotifaccordionComponent implements OnInit {
     });
   }
 
-  private listClick(event, weekValue, i) {
-
+  private listClick(event, weekValue, index, i) {
+    let found = false;
+    const controlArray = <FormArray> this.accordionForm.get('notificationData');
+    const weekSelected = this.accordionForm.get('notificationData').value[i].weekday;
+    const activeClass = this.accordionForm.get('notificationData').value[i].activeClass;
+    const indexWeek =  weekSelected.indexOf(weekValue);
+    weekSelected.forEach(element => {
+      if (element === weekValue) {
+        found = true;
+      }
+    });
+      if (found) {
+        activeClass[index] = false;
+        weekSelected.splice(indexWeek, 1);
+      } else {
+        activeClass[index] = true;
+        weekSelected.push(weekValue);
+      }
+      controlArray.controls[i].get('weekday').setValue(weekSelected);
+      controlArray.controls[i].get('activeClass').setValue(activeClass);
   }
   /*
   On click of Reset to Global Settings button,resetToGlobalSettings method is called
   which will reset notification to global settings
   */
   private restToGlobalSettings(i) {
+    const weekArray = [];
+    let count = 0;
     // Subscribe to global settings data
     this.store.select('updateSettingsData').subscribe((appState) => {
       this.globalStoreData = appState;
     });
-
     const controlArray = <FormArray> this.accordionForm.get('notificationData');
     controlArray.controls[i].get('duringTime').setValue(this.globalStoreData['duringTime']);
     controlArray.controls[i].get('toSelectTime').setValue(this.globalStoreData['toSelectTime']);
     controlArray.controls[i].get('weekday').setValue(this.globalStoreData['weekday']);
+    // Change active class color when clicked on reset to global settings
+    const weekDayGlobal = this.globalStoreData['weekday'];
+    const activeClass = this.accordionForm.get('notificationData').value[i].activeClass;
+    for (const key in this.weekdays) {
+      if (this.weekdays.hasOwnProperty(key)) {
+        weekArray.push(key);
+        activeClass[count] = false;
+        count++;
+      }
+    }
+    weekDayGlobal.forEach(element => {
+        const indexElement =  weekArray.indexOf(element);
+        activeClass[indexElement] = true;
+    });
+    controlArray.controls[i].get('activeClass').setValue(activeClass);
     console.log(this.accordionForm.value);
   }
 
@@ -108,7 +145,7 @@ export class NotifaccordionComponent implements OnInit {
   private saveAccordionData(event, i) {
     console.log('Save Accordion Data');
     if (window.confirm('Do you want to update notification information?')) {
-      const objSave = this.accordionForm.get('notificationData').value[i];
+      console.log(this.accordionForm.get('notificationData').value[i]);
     /*Event UpdateAccordionData will be dispatched which call effect which inturn will call service to save data.*/
    this.store.dispatch(new FromActions.UpdateAccordionData(this.accordionForm.get('notificationData').value[i]));
     }  else {

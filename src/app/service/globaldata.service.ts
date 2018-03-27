@@ -16,7 +16,6 @@ export class GlobalDataService {
 
     updateGlobalData(globaldata: {}): Observable<{}> {
        this.globalData = globaldata;
-       console.log(this.globalData);
        return Observable.of(this.globalData);
     }
     private handleError(error: Response) {
