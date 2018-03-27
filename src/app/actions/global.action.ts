@@ -1,7 +1,7 @@
-import { Action } from '@ngrx/store'; 
+import { Action } from '@ngrx/store';
 import { GetGlobalSettings, GlobalUpdateState } from '../model/globalsettings.model';
 
-export const APPLY_GLOBAL_SETTINGS = '[Global] Global Apply'; 
+export const APPLY_GLOBAL_SETTINGS = '[Global] Global Apply';
 export const GlOBAL_SETTINGS_UPDATE = '[Global] Update Global Settings';
 export const GlOBAL_SETTINGS_UPDATE_SUCCESS = '[GlOBAL] Update Global Settings Success';
 export const GlOBAL_SETTINGS_UPDATE_FAIL = '[GlOBAL] Update Global Settings Fail';
@@ -21,7 +21,7 @@ export class UpdateGlobalSettings implements Action {
     }
 }
 
-/* This action is dispatched by effect updateGlobalSetting once service 
+/* This action is dispatched by effect updateGlobalSetting once service
 successfully saves data */
 export class UpdateGlobalSettingsSuccess implements Action {
     readonly type = GlOBAL_SETTINGS_UPDATE_SUCCESS;

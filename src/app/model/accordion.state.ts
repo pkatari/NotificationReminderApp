@@ -1,9 +1,9 @@
 
 export interface AccordionState {
-    id : number
+    id: number;
     titleAccordion: string;
-    weekday : string[];
-    duringTime : string;
-    toSelectTime : string;
-    daysFrequency : number[];
+    weekday: string[];
+    duringTime: string;
+    toSelectTime: string;
+    daysFrequency: number[];
  }
