@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { GetGlobalSettings } from '../model/globalsettings.model';
 import { Renderer, Renderer2, ElementRef } from '@angular/core';
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
-import * as globalConst from '../constants/globalConstants'; 
+import * as globalConst from '../constants/globalConstants';
 import * as FromActions from '../actions/accordion.action';
 
 @Component({
