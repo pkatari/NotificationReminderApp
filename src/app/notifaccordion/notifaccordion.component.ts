@@ -10,13 +10,11 @@ import { Renderer2, ElementRef } from '@angular/core';
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as globalConst from '../constants/globalConstants';
 import * as FromActions from '../actions/accordion.action';
-import { ObjectIterable } from '../pipe/objectiterator';
 
 @Component({
   selector: 'app-notification-accordion',
   templateUrl: './notifaccordion.component.html',
-  styleUrls: ['./notifaccordion.component.scss'],
-  providers : [ObjectIterable]
+  styleUrls: ['./notifaccordion.component.scss']
 })
 export class NotifaccordionComponent implements OnInit {
 
@@ -31,8 +29,7 @@ export class NotifaccordionComponent implements OnInit {
   globalStoreData: {};
   daysFrequencyData: number[];
 
-  constructor(private renderer: Renderer2, private objIterable: ObjectIterable,
-    private accServiceData: AccordionDataService,
+  constructor(private renderer: Renderer2, private accServiceData: AccordionDataService,
     private fb: FormBuilder, public store: Store<fromRootReducer.State>) {
     this.createNotificationForm();
   }
@@ -118,6 +115,7 @@ export class NotifaccordionComponent implements OnInit {
     this.store.select('updateSettingsData').subscribe((appState) => {
       this.globalStoreData = appState;
     });
+
     const controlArray = <FormArray> this.accordionForm.get('notificationData');
     controlArray.controls[i].get('duringTime').setValue(this.globalStoreData['duringTime']);
     controlArray.controls[i].get('toSelectTime').setValue(this.globalStoreData['toSelectTime']);
