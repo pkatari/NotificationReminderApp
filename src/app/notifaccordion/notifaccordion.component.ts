@@ -115,26 +115,27 @@ export class NotifaccordionComponent implements OnInit {
     this.store.select('updateSettingsData').subscribe((appState) => {
       this.globalStoreData = appState;
     });
-
-    const controlArray = <FormArray> this.accordionForm.get('notificationData');
-    controlArray.controls[i].get('duringTime').setValue(this.globalStoreData['duringTime']);
-    controlArray.controls[i].get('toSelectTime').setValue(this.globalStoreData['toSelectTime']);
-    controlArray.controls[i].get('weekday').setValue(this.globalStoreData['weekday']);
-    // Change active class color when clicked on reset to global settings
-    const weekDayGlobal = this.globalStoreData['weekday'];
-    const activeClass = this.accordionForm.get('notificationData').value[i].activeClass;
-    for (const key in this.weekdays) {
-      if (this.weekdays.hasOwnProperty(key)) {
-        weekArray.push(key);
-        activeClass[count] = false;
-        count++;
+    if (this.globalStoreData['duringTime'] && this.globalStoreData['toSelectTime'] && this.globalStoreData['weekday'] !== undefined) {
+      const controlArray = <FormArray> this.accordionForm.get('notificationData');
+      controlArray.controls[i].get('duringTime').setValue(this.globalStoreData['duringTime']);
+      controlArray.controls[i].get('toSelectTime').setValue(this.globalStoreData['toSelectTime']);
+      controlArray.controls[i].get('weekday').setValue(this.globalStoreData['weekday']);
+      // Change active class color when clicked on reset to global settings
+      const weekDayGlobal = this.globalStoreData['weekday'];
+      const activeClass = this.accordionForm.get('notificationData').value[i].activeClass;
+      for (const key in this.weekdays) {
+        if (this.weekdays.hasOwnProperty(key)) {
+          weekArray.push(key);
+          activeClass[count] = false;
+          count++;
+        }
       }
+      weekDayGlobal.forEach(element => {
+          const indexElement =  weekArray.indexOf(element);
+          activeClass[indexElement] = true;
+      });
+      controlArray.controls[i].get('activeClass').setValue(activeClass);
     }
-    weekDayGlobal.forEach(element => {
-        const indexElement =  weekArray.indexOf(element);
-        activeClass[indexElement] = true;
-    });
-    controlArray.controls[i].get('activeClass').setValue(activeClass);
     console.log(this.accordionForm.value);
   }
 
