@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import * as fromRootReducer from '../reducers/reducers';
 import { Store } from '@ngrx/store';
 import { GetGlobalSettings } from '../model/globalsettings.model';
-import { Renderer, Renderer2, ElementRef } from '@angular/core';
+import { Renderer2, ElementRef } from '@angular/core';
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as globalConst from '../constants/globalConstants';
 import * as FromActions from '../actions/accordion.action';
@@ -30,7 +30,7 @@ export class NotifaccordionComponent implements OnInit {
   daysFrequencyData: number[];
 
   constructor(private renderer: Renderer2, private accServiceData: AccordionDataService,
-    private fb: FormBuilder, private render: Renderer, public store: Store<fromRootReducer.State>) {
+    private fb: FormBuilder, public store: Store<fromRootReducer.State>) {
     this.createNotificationForm();
   }
 
@@ -84,7 +84,7 @@ export class NotifaccordionComponent implements OnInit {
   }
 
   private listClick(event, weekValue, i) {
-    this.render.setElementClass(event.target, 'active-apply', true);
+
   }
   /*
   On click of Reset to Global Settings button,resetToGlobalSettings method is called
