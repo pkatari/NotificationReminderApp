@@ -5,7 +5,6 @@ import {AccordionDataService} from '../service/accordiondata.service';
 import { Observable } from 'rxjs/Observable';
 import * as fromRootReducer from '../reducers/reducers';
 import { Store } from '@ngrx/store';
-import { GetGlobalSettings } from '../model/globalsettings.model';
 import { Renderer2, ElementRef } from '@angular/core';
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as globalConst from '../constants/globalConstants';

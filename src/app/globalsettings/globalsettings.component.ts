@@ -1,6 +1,5 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { GetGlobalSettings} from '../model/globalsettings.model';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import * as FromActions from '../actions/global.action';
 import { Renderer2} from '@angular/core';
@@ -15,7 +14,6 @@ import * as globalConst from '../constants/globalConstants';
 })
 export class GlobalsettingsComponent implements OnInit {
 
-    globalInfo: GetGlobalSettings[];
     weekdays: {};
     fromTime: string[];
     toTime: string[];

@@ -1,22 +1,20 @@
 
-import { GetGlobalSettings, GlobalUpdateState } from '../model/globalsettings.model';
+import { GlobalUpdateState } from '../model/globalsettings.model';
 import { Action } from '@ngrx/store';
 import * as FromActions from '../actions/global.action';
 
 export type Action = FromActions.GlobalAll;
 
-export function globalApplyReducer(state: GetGlobalSettings[]= [], action: Action) {
+const InitialGlobalState = {
+    weekday : [],
+    duringTime : '7:00 am',
+    toSelectTime: '7:00 am'
+};
 
-    switch (action.type) {
-    case FromActions.APPLY_GLOBAL_SETTINGS:
-        return action['payload'];
-    default:
-        return state;
-    }
-}
 
 // This reducer is triggered when global settings update is successful.
-export function globalUpdateReducer(state: GlobalUpdateState[]= [], action: Action) {
+export function globalUpdateReducer(state: GlobalUpdateState = InitialGlobalState, action: Action) {
+    console.log(action);
 
     switch (action.type) {
     case FromActions.GlOBAL_SETTINGS_UPDATE_SUCCESS:

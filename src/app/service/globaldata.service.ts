@@ -3,15 +3,12 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 import { HttpClient } from '@angular/common/http';
-import { GetGlobalSettings } from '../model/globalsettings.model';
+
 @Injectable()
 export class GlobalDataService {
     globalData: {};
     private dataGlobal = '../../assets/globalsetting.json';
     constructor(private http: HttpClient) {
-    }
-    getGlobalData(): Observable<any> {
-        return this.http.get(this.dataGlobal);
     }
 
     updateGlobalData(globaldata: {}): Observable<{}> {
