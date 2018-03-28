@@ -7,18 +7,19 @@ import { AccordionState } from '../model/accordion.state';
 @Injectable()
 export class AccordionDataService {
     accData: {};
-    private accDataGlobal = '../../assets/accordionstate.json';
+    public accDataGlobal = '../../assets/accordionstate.json';
+    public mockJson  = '../../assets/mock.json';
     constructor(private http: HttpClient) {
     }
-     getAccordionData(): Observable<any> {
+    public getAccordionData(): Observable<any> {
         return this.http.get(this.accDataGlobal);
     }
 
-    updateAcordionData(globaldata: {}): Observable<{}> {
+    public updateAcordionData(globaldata: {}): Observable<{}> {
         this.accData = globaldata;
         return Observable.of(this.accData);
     }
-    private handleError(error: Response) {
+    public handleError(error: Response) {
         return Observable.throw(error.statusText);
     }
  }

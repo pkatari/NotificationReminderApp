@@ -24,7 +24,7 @@ export class UpdateGlobalSettingsSuccess implements Action {
 // This action is dispatched by effect updateGlobalSetting in case there is error
 export class UpdateGlobalSettingsError implements Action {
     readonly type = GlOBAL_SETTINGS_UPDATE_FAIL;
-    constructor(payload: {}) {
+    constructor(payload: any) {
         console.log('Action UpdateGlobalSettingsError');
     }
 }

@@ -6,7 +6,7 @@ const payload = {
     toSelectTime: '7:00 am'
 };
 
-const error = {};
+const error = {'statusText' : 'not found'};
 
 describe('UpdateGlobalSettings', () => {
     it('should create an action UpdateGlobalSettings', () => {
@@ -26,7 +26,7 @@ describe('UpdateGlobalSettings', () => {
   });
   describe('UpdateGlobalSettingsError', () => {
     it('should create an action UpdateGlobalSettingsError', () => {
-        const action = new FromActions.UpdateGlobalSettingsError(error);
+        const action = new FromActions.UpdateGlobalSettingsError(error.statusText);
         expect(action.type).toEqual(FromActions.GlOBAL_SETTINGS_UPDATE_FAIL);
     });
   });

@@ -7,15 +7,14 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class GlobalDataService {
     globalData: {};
-    private dataGlobal = '../../assets/globalsetting.json';
     constructor(private http: HttpClient) {
     }
 
-    updateGlobalData(globaldata: {}): Observable<{}> {
+    public updateGlobalData(globaldata: {}): Observable<{}> {
        this.globalData = globaldata;
        return Observable.of(this.globalData);
     }
-    private handleError(error: Response) {
+    public handleError(error: Response) {
         return Observable.throw(error.statusText);
     }
  }

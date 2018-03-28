@@ -9,7 +9,7 @@ const payload = [{
     daysFrequency: [1, 2, 3, 4]
 }];
 
-const error = {statusText : 'Not Found'};
+const error = {'statusText' : 'not found'};
 
 describe('UpdateAccordionData', () => {
     it('should create an action UpdateAccordionData', () => {
