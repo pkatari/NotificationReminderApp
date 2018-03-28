@@ -157,17 +157,29 @@ export class NotifaccordionComponent implements OnInit {
   }
 
   // This method is invoked once user clicks on accordion panel.
-  private toggleAccordian( props: NgbPanelChangeEvent, $event, i): void {
+  private toggleAccordian( props: NgbPanelChangeEvent): void {
+    const i = +props.panelId.split('-')[1];
     this.trackStatus = false;
     const closeElement = this.renderer.selectRootElement(`.acc-close${i}`);
     const pencilElement = this.renderer.selectRootElement(`.acc-pencil${i}`);
     const saveElement = this.renderer.selectRootElement(`.acc-save${i}`);
-    // const buttonElement = this.renderer.selectRootElement('.reset-button');
+
+    for (let k = 0; k < 4; k++) {
+      const closeElement1 = this.renderer.selectRootElement(`.acc-close${k}`);
+      const pencilElement1 = this.renderer.selectRootElement(`.acc-pencil${k}`);
+      const saveElement1 = this.renderer.selectRootElement(`.acc-save${k}`);
+        if (k !== i) {
+          this.renderer.removeClass(saveElement1, 'accSaveShow');
+          this.renderer.removeClass(pencilElement1, 'accPencilShow');
+          this.renderer.removeClass(closeElement1, 'accCloseShow');
+          this.renderer.addClass(saveElement1, 'accSaveHide');
+          this.renderer.addClass(pencilElement1, 'accPencilHide');
+          this.renderer.addClass(closeElement1, 'accCloseHide');
+        }
+    }
 
     this.renderer.addClass(saveElement, 'accSaveHide');
     this.renderer.removeClass(saveElement, 'accSaveShow');
-  //   this.renderer.addClass(buttonElement, 'display-none');
-
     if (props.nextState) {
       this.renderer.addClass(pencilElement , 'accPencilShow');
       this.renderer.removeClass(pencilElement , 'accPencilHide');
@@ -189,19 +201,21 @@ private enableAcciordionForm(event, i) {
     this.trackStatus = true;
     const saveElement = this.renderer.selectRootElement(`.acc-save${i}`);
     const pencilElement = this.renderer.selectRootElement(`.acc-pencil${i}`);
-    const inputFieldElement = this.renderer.selectRootElement('.input-field');
+
+    for (let k = 0; k < 4; k++) {
+      const inputFieldElement = this.renderer.selectRootElement(`.input-field-${k}`);
+      this.renderer.removeAttribute(inputFieldElement, 'readonly');
+    }
 
     this.renderer.addClass(saveElement, 'accSaveShow');
     this.renderer.removeClass(saveElement, 'accSaveHide');
     this.renderer.removeClass(pencilElement, 'accPencilShow');
     this.renderer.addClass(pencilElement, 'accPencilHide');
-    this.renderer.removeAttribute(inputFieldElement, 'readonly');
-
-   // this.renderer.removeAttribute(dayFrequencyElement, 'disabled');
 
     const controlArray = <FormArray> this.accordionForm.get('notificationData');
     controlArray.controls[i].get('duringTime').enable();
     controlArray.controls[i].get('toSelectTime').enable();
+
 
 }
 

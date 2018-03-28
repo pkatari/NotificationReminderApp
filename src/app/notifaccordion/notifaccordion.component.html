@@ -3,8 +3,8 @@
     <section *ngIf="accordionForm">
         <form [formGroup]="accordionForm" (ngSubmit)="onSubmit()" novalidate>  
             <div formArrayName="notificationData">
-                <ngb-accordion (panelChange)="toggleAccordian($event,$event,i)" [closeOthers]="true"  *ngFor="let d of accordionForm.controls.notificationData.controls; let i=index" formGroupName="{{i}}">                    
-                    <ngb-panel id="acc-{{i}}">
+                <ngb-accordion [closeOthers]="true" (panelChange)="toggleAccordian($event)">                    
+                    <ngb-panel id="acc-{{i}}"  *ngFor="let d of accordionForm.controls.notificationData.controls; let i=index" formGroupName="{{i}}">
                         <ng-template ngbPanelTitle>     
                                 <input class="title-accordion" formControlName="titleAccordion"/>
                                 <div class="align-icon">
@@ -53,7 +53,7 @@
                                         Day(s)  
                                             <div class="day-frequency">  
                                                 <div FormArrayName="daysFrequency" *ngFor="let freq of d.value.daysFrequency;let index=index">
-                                                    <input class="input-field-{{i}} input-field" readonly type="text" value="{{freq}}" [ngClass]="trackStatus ? 'input-enable':'input-disable'" (change)="freqChange($event,index,i)"/>                                        
+                                                    <input class="input-field-{{index}} input-field" readonly type="text" value="{{freq}}" [ngClass]="trackStatus ? 'input-enable':'input-disable'" (change)="freqChange($event,index,i)"/>                                        
                                                 </div>
                                             </div>
                                     </div>
