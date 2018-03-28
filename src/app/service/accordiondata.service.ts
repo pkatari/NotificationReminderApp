@@ -7,8 +7,7 @@ import { AccordionState } from '../model/accordion.state';
 @Injectable()
 export class AccordionDataService {
     accData: {};
-    public accDataGlobal = '../../assets/accordionstate.json';
-    public mockJson  = '../../assets/mock.json';
+    private accDataGlobal = '../../assets/accordionstate.json';
     constructor(private http: HttpClient) {
     }
     public getAccordionData(): Observable<any> {
