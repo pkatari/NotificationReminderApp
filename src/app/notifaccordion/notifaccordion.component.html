@@ -9,6 +9,7 @@
                                 <input class="title-accordion" formControlName="titleAccordion"/>
                                 <div class="align-icon">
                                     <p class="acc-save{{i}} accSaveHide" (click)="saveAccordionData($event,i)"></p>
+                                    <p class="acc-pencil{{i}}" (click)="$event.stopPropagation();$event.preventDefault();enableAcciordionForm($event,i)"></p>
                                     <p class="acc-close{{i}} accCloseHide"></p>               
                                 </div>          
                         </ng-template>
@@ -19,7 +20,7 @@
                                         <span class="title-text">Repeat On</span>
                                         <ul>
                                             <li FormArrayName="weekday" class="days-style" *ngFor="let week1 of weekdays | ObjectIterable;let j='index'"> 
-                                                <a class="week-{{j}}-{{i}}" [ngClass]="d.value.activeClass[j] ? 'active-apply' : ''" (click)="listClick($event, week1.key,j,i)">{{week1.val}}</a>
+                                                <a class="week-{{j}}-{{i}}" [ngClass]="d.value.activeClass[j] ? trackStatus ? 'active-apply':'active-apply-gray' : ''" (click)="trackStatus ? listClick($event, week1.key,j,i) : $event.preventDefault();">{{week1.val}}</a>
                                             </li>
                                         </ul>     
                                     </div>
@@ -34,7 +35,7 @@
                                         </select> 
                                     </div>
                                     <div class="reset-button">
-                                        <button type="button" class="btn btn-link" (click)="restToGlobalSettings(i)">Reset to Global Settings</button>
+                                        <button type="button" class="btn btn-link" [ngClass]="trackStatus ? 'display-block': 'display-none'" (click)="restToGlobalSettings(i)">Reset to Global Settings</button>
                                     </div>
                                 </div>
                          
@@ -46,20 +47,18 @@
                                                 <a>{{round}}</a>
                                                 <span class="child-arrow"></span>
                                             </li>
-                                        </ul> 
-                                      
+                                        </ul>                                       
                                     </div>
                                     <div class="row">
                                         Day(s)  
                                             <div class="day-frequency">  
                                                 <div FormArrayName="daysFrequency" *ngFor="let freq of d.value.daysFrequency;let index=index">
-                                                    <input  class="input-field" type="text" value="{{freq}}" (change)="freqChange($event,index,i)"/>                                        
+                                                    <input class="input-field-{{i}} input-field" readonly type="text" value="{{freq}}" [ngClass]="trackStatus ? 'input-enable':'input-disable'" (change)="freqChange($event,index,i)"/>                                        
                                                 </div>
                                             </div>
                                     </div>
                                 </div>
                             </div>
-
                         </ng-template>
                     </ngb-panel> 
                 </ngb-accordion>

@@ -78,7 +78,12 @@
 }
 
 .active-apply {
-    background-color: $blue-color !important;
+    background-color: blue !important;
+    color: $white-color !important;
+}
+
+.active-apply-gray {
+    background-color: darkgray !important;
     color: $white-color !important;
 }
 
@@ -88,6 +93,14 @@
    &::after {
     content: "\2714";
    }
+}
+
+.accPencilShow {
+    display: block;
+    margin-right: 2em;
+    &::after {
+     content: "\270E";
+    }
 }
 
 .accCloseShow {
@@ -103,13 +116,37 @@
     display: flex;
 }
 
-.accSaveHide,.accCloseHide{
+.accSaveHide,.accCloseHide,.accPencilHide {
   display: none;
 } 
 
 .active-disable {
     background: lightgray !important;
     color: black !important;
+}
+
+.display-none {
+    display:none;
+}
+
+.display-block {
+    display: block;
+}
+
+.input-disable {
+    border: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;  
+    &:focus {
+      border:none;
+      outline: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;  
+    }
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {

@@ -27,10 +27,11 @@ export class NotifaccordionComponent implements OnInit {
   elapseTimeRounds: number[];
   globalStoreData: {};
   daysFrequencyData: number[];
-
+  trackStatus: boolean;
   constructor(private renderer: Renderer2, private accServiceData: AccordionDataService,
     private fb: FormBuilder, public store: Store<fromRootReducer.State>) {
-    this.createNotificationForm();
+      this.trackStatus = false;
+      this.createNotificationForm();
   }
 
   ngOnInit() {
@@ -72,9 +73,9 @@ export class NotifaccordionComponent implements OnInit {
       }
       control.push(this.fb.group({
         id: x.id,
-        duringTime: x.duringTime,
-        toSelectTime : x.toSelectTime,
-        titleAccordion : ({value: x.titleAccordion, disabled: true}),
+        duringTime: {value : x.duringTime, disabled: true},
+        toSelectTime : {value : x.toSelectTime, disabled: true},
+        titleAccordion : {value: x.titleAccordion, disabled: true},
         activeClass : [activeClass],
         weekday : [x.weekday],
         daysFrequency : [x.daysFrequency]
@@ -157,21 +158,54 @@ export class NotifaccordionComponent implements OnInit {
 
   // This method is invoked once user clicks on accordion panel.
   private toggleAccordian( props: NgbPanelChangeEvent, $event, i): void {
-    const saveElement = this.renderer.selectRootElement(`.acc-save${i}`);
+    this.trackStatus = false;
     const closeElement = this.renderer.selectRootElement(`.acc-close${i}`);
+    const pencilElement = this.renderer.selectRootElement(`.acc-pencil${i}`);
+    const saveElement = this.renderer.selectRootElement(`.acc-save${i}`);
+    // const buttonElement = this.renderer.selectRootElement('.reset-button');
+
+    this.renderer.addClass(saveElement, 'accSaveHide');
+    this.renderer.removeClass(saveElement, 'accSaveShow');
+  //   this.renderer.addClass(buttonElement, 'display-none');
+
     if (props.nextState) {
-      this.renderer.addClass(saveElement, 'accSaveShow');
-      this.renderer.removeClass(saveElement, 'accSaveHide');
+      this.renderer.addClass(pencilElement , 'accPencilShow');
+      this.renderer.removeClass(pencilElement , 'accPencilHide');
       this.renderer.addClass(closeElement , 'accCloseShow');
       this.renderer.removeClass(closeElement , 'accCloseHide');
     } else {
-        this.renderer.removeClass(saveElement, 'accSaveShow');
-        this.renderer.addClass(saveElement, 'accSaveHide');
+        this.renderer.removeClass(pencilElement, 'accPencilShow');
+        this.renderer.addClass(pencilElement, 'accPencilHide');
         this.renderer.removeClass(closeElement, 'accCloseShow');
         this.renderer.addClass(closeElement, 'accCloseHide');
     }
+    const controlArray = <FormArray> this.accordionForm.get('notificationData');
+    controlArray.controls[i].get('duringTime').disable();
+    controlArray.controls[i].get('toSelectTime').disable();
  }
 
+  // To Change pencil icon to save icon
+private enableAcciordionForm(event, i) {
+    this.trackStatus = true;
+    const saveElement = this.renderer.selectRootElement(`.acc-save${i}`);
+    const pencilElement = this.renderer.selectRootElement(`.acc-pencil${i}`);
+    const inputFieldElement = this.renderer.selectRootElement('.input-field');
+
+    this.renderer.addClass(saveElement, 'accSaveShow');
+    this.renderer.removeClass(saveElement, 'accSaveHide');
+    this.renderer.removeClass(pencilElement, 'accPencilShow');
+    this.renderer.addClass(pencilElement, 'accPencilHide');
+    this.renderer.removeAttribute(inputFieldElement, 'readonly');
+
+   // this.renderer.removeAttribute(dayFrequencyElement, 'disabled');
+
+    const controlArray = <FormArray> this.accordionForm.get('notificationData');
+    controlArray.controls[i].get('duringTime').enable();
+    controlArray.controls[i].get('toSelectTime').enable();
+
+}
+
+// This method is invoked to handle days frequency change
 private freqChange(event, index, i) {
     let freqChangeValue = [];
     const controlArray = <FormArray> this.accordionForm.get('notificationData');
