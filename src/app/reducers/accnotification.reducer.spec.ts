@@ -36,7 +36,6 @@ describe('Accordion Notification Reducer', () => {
 
     const action = new FromActions.UpdateAccordionDataSuccess(testMock);
     const state = accordionReducer.AccordionUpdateReducer(InitialState, {type: 'FromActions.ACCORDION_SETTINGS_UPDATE_SUCCESS'});
-    console.log(state.titleAccordion);
     expect(action['payload']).toBe(testMock);
     });
   });

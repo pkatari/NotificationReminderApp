@@ -11,14 +11,14 @@ export class AccordionDataService {
     constructor(private http: HttpClient) {
     }
      getAccordionData(): Observable<any> {
-         return this.http.get(this.accDataGlobal);
+        return this.http.get(this.accDataGlobal);
     }
 
     updateAcordionData(globaldata: {}): Observable<{}> {
-       this.accData = globaldata;
-       return Observable.of(this.accData);
+        this.accData = globaldata;
+        return Observable.of(this.accData);
     }
     private handleError(error: Response) {
-         return Observable.throw(error.statusText);
+        return Observable.throw(error.statusText);
     }
  }

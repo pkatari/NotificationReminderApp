@@ -25,7 +25,7 @@ export class UpdateAccordionDataSuccess implements Action {
 // This action is dispatched by effect updateAccordionData in case there is error
 export class UpdateAccordionDataError implements Action {
     readonly type = ACCORDION_SETTINGS_UPDATE_FAIL;
-    constructor(payload: {}) {
+    constructor(payload: any) {
         console.log('Action Update Accordion Data Error');
     }
 }
