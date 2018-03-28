@@ -59,7 +59,7 @@ export class GlobalsettingsComponent implements OnInit {
    /*On click of 'Apply' Buton,onSubmit method is called which dispatch
    an action UpdateGlobalSettings which will call effect which in turn will
    invoke service to store data */
-    private onSubmit() {
+    public onSubmit() {
       console.log(this.globalForm.value);
       // Dispatch action on submit
       this.store.dispatch(new FromActions.UpdateGlobalSettings(this.globalForm.value));

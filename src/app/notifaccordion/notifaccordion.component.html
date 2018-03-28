@@ -6,7 +6,7 @@
                 <ngb-accordion (panelChange)="toggleAccordian($event,$event,i)" [closeOthers]="true"  *ngFor="let d of accordionForm.controls.notificationData.controls; let i=index" formGroupName="{{i}}">                    
                     <ngb-panel id="acc-{{i}}">
                         <ng-template ngbPanelTitle>     
-                                <input disabled class="title-accordion" formControlName="titleAccordion"/>
+                                <input class="title-accordion" formControlName="titleAccordion"/>
                                 <div class="align-icon">
                                     <p class="acc-save{{i}} accSaveHide" (click)="saveAccordionData($event,i)"></p>
                                     <p class="acc-close{{i}} accCloseHide"></p>               

@@ -74,7 +74,7 @@ export class NotifaccordionComponent implements OnInit {
         id: x.id,
         duringTime: x.duringTime,
         toSelectTime : x.toSelectTime,
-        titleAccordion : x.titleAccordion,
+        titleAccordion : ({value: x.titleAccordion, disabled: true}),
         activeClass : [activeClass],
         weekday : [x.weekday],
         daysFrequency : [x.daysFrequency]
@@ -140,7 +140,7 @@ export class NotifaccordionComponent implements OnInit {
 
   /* On click of checkmark icon, accordion notification data is saved.
   */
-  private saveAccordionData(event, i) {
+  public saveAccordionData(event, i) {
     console.log('Save Accordion Data');
     if (window.confirm('Do you want to update notification information?')) {
       console.log(this.accordionForm.get('notificationData').value[i]);
