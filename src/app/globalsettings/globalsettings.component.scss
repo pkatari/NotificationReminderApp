@@ -12,12 +12,6 @@
             border-radius: 1em;
             margin-bottom: 3em;
             @include globalstyle();
-            .during-time {
-                margin: 0 2em 0 4em;
-            }
-            .to-time {
-                margin: 0 8em 0 1em;
-            }
         }    
     
    
@@ -38,53 +32,8 @@ select {
     height: 2em;
     padding: 0 0 0 0.5em;
 }
-
-//******************For Portrait************************************************
-
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px)  {
-   .form-settings {
-        width: 100% !important;
-        padding: 2em 1em 1em 2em !important;
-        .title-text {
-           padding-left: 3.9em !important;
-           font-size: 1.5em;
-        }
-        ul {
-            padding-left: 0 !important;
-            position: static !important;
-            margin: 0.8em 0 2em 1em !important;
-            .days-style {  
-                @include positionset(inline,static,0);
-            }
-        } 
-        .during-time {
-            margin: 0 0.5em 0em 1em !important;
-        }
-        .to-time {
-            margin: 0 0em 0 0.3em !important;
-        }
-        .submit-button {
-            margin: 2em 0 0 7em;      
-        }
-   }
-}
-//******************For Landscape************************************************
-
-@media only screen and (min-device-width: 320px) and (max-device-height: 568px) {
     .form-settings {
         width: 100% !important;
-        flex-direction: column;
-        padding: 2em 1em 1em 2em !important;
-        .title-text {
-           padding-left: 0 !important;
-           font-size: 1.5em;
-        }
-        .during-time {
-            margin: 0 0.5em 0em 7em !important;
-        }
-        .pull-right {
-            margin-top: 2em;
-        }
     }
 }
-//For iphone 5
