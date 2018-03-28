@@ -8,8 +8,9 @@
                         <ng-template ngbPanelTitle>     
                                 <input class="title-accordion" formControlName="titleAccordion"/>
                                 <div class="align-icon">
-                                    <p class="acc-save{{i}} accSaveHide" (click)="saveAccordionData($event,i)"></p>
-                                    <p class="acc-close{{i}} accCloseHide"></p>               
+                                    <p class="acc-save{{i}}" [ngClass]="trackStatus && trackSaveIcon ? 'accSaveShow': 'accSaveHide'" (click)="saveAccordionData($event,i)"></p>
+                                    <p class="acc-pencil{{i}}" [ngClass]="trackStatus ? 'accPencilShow' : 'accPencilHide'"  (click)="$event.stopPropagation();$event.preventDefault();enableAcciordionForm()"></p>
+                                    <p class="acc-close{{i}}" [ngClass]="trackStatus ? 'accCloseShow' : 'accCloseHide'"></p>               
                                 </div>          
                         </ng-template>
                         <ng-template ngbPanelContent>                        
@@ -53,7 +54,7 @@
                                         Day(s)  
                                             <div class="day-frequency">  
                                                 <div FormArrayName="daysFrequency" *ngFor="let freq of d.value.daysFrequency;let index=index">
-                                                    <input  class="input-field" type="text" value="{{freq}}" (change)="freqChange($event,index,i)"/>                                        
+                                                    <input disabled class="input-field" type="text" value="{{freq}}" (change)="freqChange($event,index,i)"/>                                        
                                                 </div>
                                             </div>
                                     </div>

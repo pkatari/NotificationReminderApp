@@ -9,11 +9,13 @@ import { Renderer2, ElementRef } from '@angular/core';
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as globalConst from '../constants/globalConstants';
 import * as FromActions from '../actions/accordion.action';
+import {NgbAccordionConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-notification-accordion',
   templateUrl: './notifaccordion.component.html',
-  styleUrls: ['./notifaccordion.component.scss']
+  styleUrls: ['./notifaccordion.component.scss'],
+  providers: [NgbAccordionConfig]
 })
 export class NotifaccordionComponent implements OnInit {
 
@@ -27,9 +29,14 @@ export class NotifaccordionComponent implements OnInit {
   elapseTimeRounds: number[];
   globalStoreData: {};
   daysFrequencyData: number[];
-
+  trackStatus: boolean;
+  trackSaveIcon: boolean;
+  trackStatusPencil: boolean;
   constructor(private renderer: Renderer2, private accServiceData: AccordionDataService,
-    private fb: FormBuilder, public store: Store<fromRootReducer.State>) {
+    private config: NgbAccordionConfig, private fb: FormBuilder, public store: Store<fromRootReducer.State>) {
+    this.trackStatus = false;
+    this.trackSaveIcon = false;
+    this.trackStatusPencil = true;
     this.createNotificationForm();
   }
 
@@ -55,6 +62,7 @@ export class NotifaccordionComponent implements OnInit {
     this.accordionForm = this.fb.group({
       notificationData: this.fb.array([])
     });
+    this.accordionForm.disable();
   }
 
   /*This method is invoked to patch the value received from store to the
@@ -72,8 +80,8 @@ export class NotifaccordionComponent implements OnInit {
       }
       control.push(this.fb.group({
         id: x.id,
-        duringTime: x.duringTime,
-        toSelectTime : x.toSelectTime,
+        duringTime:  x.duringTime,
+        toSelectTime : ({value: x.toSelectTime, disabled: true}),
         titleAccordion : ({value: x.titleAccordion, disabled: true}),
         activeClass : [activeClass],
         weekday : [x.weekday],
@@ -156,21 +164,27 @@ export class NotifaccordionComponent implements OnInit {
   }
 
   // This method is invoked once user clicks on accordion panel.
-  private toggleAccordian( props: NgbPanelChangeEvent, $event, i): void {
-    const saveElement = this.renderer.selectRootElement(`.acc-save${i}`);
-    const closeElement = this.renderer.selectRootElement(`.acc-close${i}`);
-    if (props.nextState) {
-      this.renderer.addClass(saveElement, 'accSaveShow');
-      this.renderer.removeClass(saveElement, 'accSaveHide');
-      this.renderer.addClass(closeElement , 'accCloseShow');
-      this.renderer.removeClass(closeElement , 'accCloseHide');
-    } else {
-        this.renderer.removeClass(saveElement, 'accSaveShow');
-        this.renderer.addClass(saveElement, 'accSaveHide');
-        this.renderer.removeClass(closeElement, 'accCloseShow');
-        this.renderer.addClass(closeElement, 'accCloseHide');
-    }
+  private toggleAccordian( props: NgbPanelChangeEvent, $event, i): boolean {
+
+      if (props.nextState) {
+        console.log('status:true');
+        this.trackStatus = true;
+        this.trackStatusPencil = false;
+      } else {
+        console.log('status:false');
+        this.trackStatus = false;
+        this.trackStatusPencil = true;
+      }
+      return this.trackStatus;
  }
+
+ // To Change pencil icon to save icon
+ private enableAcciordionForm() {
+       this.trackSaveIcon = true;
+       this.trackStatusPencil = false;
+       console.log('save icon........');
+       console.log(this.trackSaveIcon);
+}
 
 private freqChange(event, index, i) {
     let freqChangeValue = [];

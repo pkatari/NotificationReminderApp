@@ -90,6 +90,14 @@
    }
 }
 
+.accPencilShow {
+    display: block;
+    margin-right: 2em;
+    &::after {
+     content: "\270E";
+    }
+}
+
 .accCloseShow {
     display: block;
     &::after {
@@ -103,7 +111,7 @@
     display: flex;
 }
 
-.accSaveHide,.accCloseHide{
+.accSaveHide,.accCloseHide ,.accPencilHide {
   display: none;
 } 
 
