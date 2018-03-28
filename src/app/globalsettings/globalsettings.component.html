@@ -3,30 +3,42 @@
       <h6>Global Settings</h6>
     </div>
     <section *ngIf="globalForm">
-    <form [formGroup]="globalForm" (ngSubmit)="onSubmit()" novalidate>
-        <div class="form-settings">
-            <div class="row"> 
-                <div class="title-text">Repeat On</div>
-                <ul>
-                    <li class="days-style" *ngFor="let week1 of weekdays | ObjectIterable;let i='index'"> 
-                        <a  (click)="listClick($event, week1.key,i)">{{week1.val}}</a>
-                    </li>
-                </ul>     
-             </div>
-             <div class="row"> 
-                <label>During</label>
-                <select formControlName="duringTime" class="during-time">
-                    <option  *ngFor="let duringTime of fromTime"  [value]="duringTime">{{duringTime}}</option>
-                </select>  
-                <label>to</label>    
-                <select formControlName="toSelectTime" class="to-time">
-                    <option *ngFor="let toSelectTime of toTime" [value]="toSelectTime">{{toSelectTime}}</option>
-                 </select> 
-                <button type="submit" class="btn submit-button">Apply</button>
+        <div class="row">
+            <div class= "col-lg-12">
+                <form [formGroup]="globalForm" (ngSubmit)="onSubmit()" novalidate>
+                    <div class="form-settings">
+                        <div class="row">
+                            <div class="title-text">Repeat On</div>
+                            <ul>
+                                <li class="days-style" *ngFor="let week1 of weekdays | ObjectIterable;let i='index'"> 
+                                    <a  (click)="listClick($event, week1.key,i)">{{week1.val}}</a>
+                                </li>
+                            </ul>     
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <label>During</label>
+                            </div>
+                            <div class="col-lg-3">
+                                <select formControlName="duringTime" class="during-time">
+                                    <option  *ngFor="let duringTime of fromTime"  [value]="duringTime">{{duringTime}}</option>
+                                </select>  
+                            </div>
+                            <div class="col-lg-1">
+                                <label>to</label>    
+                            </div>
+                            <div class="col-lg-3">
+                                <select formControlName="toSelectTime" class="to-time">
+                                    <option *ngFor="let toSelectTime of toTime" [value]="toSelectTime">{{toSelectTime}}</option>
+                                </select> 
+                            </div>
+                            <div class="col-lg-3">
+                               <button type="submit" class="btn submit-button">Apply</button>
+                            </div>
+                        </div>
+                    </div>    
+                </form>
             </div>
-         
         </div>
-    
-    </form>
 </section> 
 </div>
