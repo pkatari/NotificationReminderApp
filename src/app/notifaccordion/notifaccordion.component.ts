@@ -18,7 +18,7 @@ import * as FromActions from '../actions/accordion.action';
 export class NotifaccordionComponent implements OnInit {
 
   accData: AccordionState[];
-  accordionForm: FormGroup;
+  notification__form: FormGroup;
   notificationData: FormArray;
   defaultSetState: fromRootReducer.State;
   weekdays: {};
@@ -53,7 +53,7 @@ export class NotifaccordionComponent implements OnInit {
 
   // To create Accordion Notification Form.
   private createNotificationForm() {
-    this.accordionForm = this.fb.group({
+    this.notification__form = this.fb.group({
       notificationData: this.fb.array([])
     });
   }
@@ -61,7 +61,7 @@ export class NotifaccordionComponent implements OnInit {
   /*This method is invoked to patch the value received from store to the
   reactive accordionForm */
   private patchForm() {
-    const control = <FormArray>this.accordionForm.controls.notificationData;
+    const control = <FormArray>this.notification__form.controls.notificationData;
     this.accData.forEach((x, i) => {
       const activeClass = [];
       for (const key in this.weekdays) {
@@ -85,9 +85,9 @@ export class NotifaccordionComponent implements OnInit {
 
   private listClick(event, weekValue, index, i) {
     let found = false;
-    const controlArray = <FormArray> this.accordionForm.get('notificationData');
-    const weekSelected = this.accordionForm.get('notificationData').value[i].weekday;
-    const activeClass = this.accordionForm.get('notificationData').value[i].activeClass;
+    const controlArray = <FormArray> this.notification__form.get('notificationData');
+    const weekSelected = this.notification__form.get('notificationData').value[i].weekday;
+    const activeClass = this.notification__form.get('notificationData').value[i].activeClass;
     const indexWeek =  weekSelected.indexOf(weekValue);
     weekSelected.forEach(element => {
       if (element === weekValue) {
@@ -116,13 +116,13 @@ export class NotifaccordionComponent implements OnInit {
       this.globalStoreData = appState;
     });
     if (this.globalStoreData['duringTime'] && this.globalStoreData['toSelectTime'] && this.globalStoreData['weekday'] !== undefined) {
-      const controlArray = <FormArray> this.accordionForm.get('notificationData');
+      const controlArray = <FormArray> this.notification__form.get('notificationData');
       controlArray.controls[i].get('duringTime').setValue(this.globalStoreData['duringTime']);
       controlArray.controls[i].get('toSelectTime').setValue(this.globalStoreData['toSelectTime']);
       controlArray.controls[i].get('weekday').setValue(this.globalStoreData['weekday']);
       // Change active class color when clicked on reset to global settings
       const weekDayGlobal = this.globalStoreData['weekday'];
-      const activeClass = this.accordionForm.get('notificationData').value[i].activeClass;
+      const activeClass = this.notification__form.get('notificationData').value[i].activeClass;
       for (const key in this.weekdays) {
         if (this.weekdays.hasOwnProperty(key)) {
           weekArray.push(key);
@@ -136,7 +136,7 @@ export class NotifaccordionComponent implements OnInit {
       });
       controlArray.controls[i].get('activeClass').setValue(activeClass);
     }
-    console.log(this.accordionForm.value);
+    console.log(this.notification__form.value);
   }
 
   /* On click of checkmark icon, accordion notification data is saved.
@@ -144,9 +144,9 @@ export class NotifaccordionComponent implements OnInit {
   public saveAccordionData(event, i) {
     console.log('Save Accordion Data');
     if (window.confirm('Do you want to update notification information?')) {
-      console.log(this.accordionForm.get('notificationData').value[i]);
+      console.log(this.notification__form.get('notificationData').value[i]);
     /*Event UpdateAccordionData will be dispatched which call effect which inturn will call service to save data.*/
-   this.store.dispatch(new FromActions.UpdateAccordionData(this.accordionForm.get('notificationData').value[i]));
+   this.store.dispatch(new FromActions.UpdateAccordionData(this.notification__form.get('notificationData').value[i]));
     }  else {
       console.log('Data is not saved');
     }
@@ -191,7 +191,7 @@ export class NotifaccordionComponent implements OnInit {
         this.renderer.removeClass(closeElement, 'accCloseShow');
         this.renderer.addClass(closeElement, 'accCloseHide');
     }
-    const controlArray = <FormArray> this.accordionForm.get('notificationData');
+    const controlArray = <FormArray> this.notification__form.get('notificationData');
     controlArray.controls[i].get('duringTime').disable();
     controlArray.controls[i].get('toSelectTime').disable();
  }
@@ -212,7 +212,7 @@ private enableAcciordionForm(event, i) {
     this.renderer.removeClass(pencilElement, 'accPencilShow');
     this.renderer.addClass(pencilElement, 'accPencilHide');
 
-    const controlArray = <FormArray> this.accordionForm.get('notificationData');
+    const controlArray = <FormArray> this.notification__form.get('notificationData');
     controlArray.controls[i].get('duringTime').enable();
     controlArray.controls[i].get('toSelectTime').enable();
 
@@ -222,7 +222,7 @@ private enableAcciordionForm(event, i) {
 // This method is invoked to handle days frequency change
 private freqChange(event, index, i) {
     let freqChangeValue = [];
-    const controlArray = <FormArray> this.accordionForm.get('notificationData');
+    const controlArray = <FormArray> this.notification__form.get('notificationData');
     freqChangeValue = controlArray.controls[i].get('daysFrequency').value;
     freqChangeValue[index] = +event.target.value;
     controlArray.controls[i].get('daysFrequency').setValue(freqChangeValue);

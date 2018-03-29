@@ -1,9 +1,9 @@
 @import "../globalsettings/globalsettings.component.scss";
 @import '../../scss/_variables.scss';
 
-.accordion-list {
+.notification {
     margin-top: -1em;  
-    .acc-heading {
+    .notification__heading {
         background-clip: border-box;
         border: 1px solid rgba(0, 0, 0, 0.125);
         border-radius: 0.25rem;
@@ -15,32 +15,32 @@
         background-color: rgba(0, 0, 0, 0.03);
         border-bottom: 1px solid rgba(0, 0, 0, 0.125);
     }
-    .title-accordion {
+    .notification__title {
         width:50%;
         border: 0;
         padding: 0.5em;
     } 
-    .form-settings {
+    .notification__main {
         padding: $padding-val;
         border: none;
         @include globalstyle();
      
             ul {
-                .days-style {       
-                    .child-arrow {
+                .global__days{       
+                    .global__days--arrow {
                         border-bottom: 3px dotted blue;
                         padding-left: 2em;
                         position: relative;
                         top: -1em;
                     }
                     &:last-child {
-                        .child-arrow {
+                        .global__days--arrow {
                             padding-left: 0em;
                         }
                     }  
                 } 
             }     
-            .day-frequency {
+            .global__daysfreq {
                 display: flex;
                 div {
                     width:6em;
@@ -65,15 +65,10 @@
     
  }
 
-.reset-button {
+.notification__button {
     position: relative;
     top: 1.2em;
     left: 13em;
-}
-
-.active-apply {
-    background-color: blue !important;
-    color: $white-color !important;
 }
 
 .active-apply-gray {
@@ -104,7 +99,7 @@
     }
 }
 
-.align-icon {
+.notification__icon {
     float: right;
     display: flex;
 }
