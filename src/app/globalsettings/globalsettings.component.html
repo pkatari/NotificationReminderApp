@@ -1,16 +1,16 @@
-<div class="global-settings">
-    <div class="heading-set">
+<div class="global">
+    <div class="global__heading">
       <h6>Global Settings</h6>
     </div>
-    <section *ngIf="globalForm">
+    <section *ngIf="global__form">
         <div class="row">
             <div class= "col-lg-12">
-                <form [formGroup]="globalForm" (ngSubmit)="onSubmit()" novalidate>
-                    <div class="form-settings">
+                <form [formGroup]="global__form" (ngSubmit)="onSubmit()" novalidate>
+                    <div class="global__main">
                         <div class="row">
                             <div>Repeat On</div>
                             <ul>
-                                <li class="days-style" *ngFor="let week1 of weekdays | ObjectIterable;let i='index'"> 
+                                <li class="global__days" *ngFor="let week1 of weekdays | ObjectIterable;let i='index'"> 
                                     <a  (click)="listClick($event, week1.key,i)">{{week1.val}}</a>
                                 </li>
                             </ul>     
@@ -20,7 +20,7 @@
                                 <label>During</label>
                             </div>
                             <div class="col-lg-3">
-                                <select formControlName="duringTime" class="during-time">
+                                <select formControlName="duringTime">
                                     <option  *ngFor="let duringTime of fromTime"  [value]="duringTime">{{duringTime}}</option>
                                 </select>  
                             </div>
@@ -28,12 +28,12 @@
                                 <label>to</label>    
                             </div>
                             <div class="col-lg-3">
-                                <select formControlName="toSelectTime" class="to-time">
+                                <select formControlName="toSelectTime">
                                     <option *ngFor="let toSelectTime of toTime" [value]="toSelectTime">{{toSelectTime}}</option>
                                 </select> 
                             </div>
                             <div class="col-lg-3">
-                               <button type="submit" class="btn submit-button">Apply</button>
+                               <button type="submit" class="btn global__submit">Apply</button>
                             </div>
                         </div>
                     </div>    

@@ -11,7 +11,7 @@
 
 @mixin globalstyle() {
     ul {
-        .days-style {  
+        .global__days {  
             display:inline;
             a {
                 @include setwidthheight(36px,33px);

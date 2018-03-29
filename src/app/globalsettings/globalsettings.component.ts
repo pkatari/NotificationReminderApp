@@ -17,7 +17,7 @@ export class GlobalsettingsComponent implements OnInit {
     weekdays: {};
     fromTime: string[];
     toTime: string[];
-    globalForm: FormGroup;
+    global__form: FormGroup;
     constructor(private renderer: Renderer2, private formBuilder: FormBuilder,
         public store: Store<fromRootReducer.State>) {
     }
@@ -31,7 +31,7 @@ export class GlobalsettingsComponent implements OnInit {
 
    // This method is incoked to create globalForm.
     private createForm() {
-        this.globalForm = this.formBuilder.group({
+        this.global__form = this.formBuilder.group({
         weekday : new FormArray([]),
         duringTime: '7:00 am',
         toSelectTime : '7:00 pm'
@@ -40,28 +40,28 @@ export class GlobalsettingsComponent implements OnInit {
 
     private listClick(event, weekValue, i) {
         let found = false;
-        this.globalForm.value.weekday.forEach(element => {
+        this.global__form.value.weekday.forEach(element => {
         if (element === weekValue) {
             found = true;
         }
       });
       if (found) {
-          this.renderer.removeClass(event.target, 'active-apply');
-          const index =  this.globalForm.value.weekday.indexOf(weekValue);
+          this.renderer.removeClass(event.target, 'global--active');
+          const index =  this.global__form.value.weekday.indexOf(weekValue);
           if (index > -1) {
-            this.globalForm.value.weekday.splice(index, 1);
+            this.global__form.value.weekday.splice(index, 1);
           }
        }  else {
-          this.globalForm.value.weekday.push(weekValue);
-          this.renderer.addClass(event.target, 'active-apply');
+          this.global__form.value.weekday.push(weekValue);
+          this.renderer.addClass(event.target, 'global--active');
        }
     }
    /*On click of 'Apply' Buton,onSubmit method is called which dispatch
    an action UpdateGlobalSettings which will call effect which in turn will
    invoke service to store data */
     public onSubmit() {
-      console.log(this.globalForm.value);
+      console.log(this.global__form.value);
       // Dispatch action on submit
-      this.store.dispatch(new FromActions.UpdateGlobalSettings(this.globalForm.value));
+      this.store.dispatch(new FromActions.UpdateGlobalSettings(this.global__form.value));
     }
 }

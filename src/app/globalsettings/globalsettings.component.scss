@@ -1,29 +1,26 @@
 @import '../../scss/_variables.scss';
 @import '../../scss/_mixins.scss';
 
-.global-settings {
-    .heading-set {
+.global {
+    .global__heading {
         padding: $padding-val 0;
     }
-        .form-settings {
-            border: 1px solid $lightgr-color;
-            padding: 2em;
-            width: 50%;
-            border-radius: 1em;
-            margin-bottom: 3em;
-            @include globalstyle();
-        }    
-    
-   
+    .global__main {
+        border: 1px solid $lightgr-color;
+        padding: 2em;
+        width: 50%;
+        border-radius: 1em;
+        margin-bottom: 3em;
+        @include globalstyle();
+    }      
 }
 
-.active-apply {
+.global--active {
     background-color: $blue-color !important;
     color: $white-color !important;
 }
 
-.submit-button {
-
+.global__submit {
     border: 1px solid $blue-color;
 }
 
@@ -33,7 +30,7 @@ select {
     padding: 0 0 0 0.5em;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px)  {
-    .form-settings {
+    .global__main {
         width: 100% !important;
     }
 }
