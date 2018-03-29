@@ -14,17 +14,32 @@
                                 </div>          
                         </ng-template>
                         <ng-template ngbPanelContent>                        
-                            <div class="form-settings ">
-                                <div class="pull-left">                                      
-                                    <div class="row"> 
-                                        <span class="title-text">Repeat On</span>
-                                        <ul>
-                                            <li FormArrayName="weekday" class="days-style" *ngFor="let week1 of weekdays | ObjectIterable;let j='index'"> 
-                                                <a class="week-{{j}}-{{i}}" [ngClass]="d.value.activeClass[j] ? trackStatus ? 'active-apply':'active-apply-gray' : ''" (click)="trackStatus ? listClick($event, week1.key,j,i) : $event.preventDefault();">{{week1.val}}</a>
-                                            </li>
-                                        </ul>     
-                                    </div>
-                                    <div class="row"> 
+                            <div class="form-settings ">    
+                                <div class="row">       
+                                    <div class="col-lg-6">    
+                                        <div class="row">
+                                            <div>Repeat On</div>
+                                            <ul>
+                                                <li FormArrayName="weekday" class="days-style" *ngFor="let week1 of weekdays | ObjectIterable;let j='index'"> 
+                                                    <a class="week-{{j}}-{{i}}" [ngClass]="d.value.activeClass[j] ? trackStatus ? 'active-apply':'active-apply-gray' : ''" (click)="trackStatus ? listClick($event, week1.key,j,i) : $event.preventDefault();">{{week1.val}}</a>
+                                                </li>
+                                            </ul>    
+                                       </div>
+                                   </div> 
+                                   <div class="col-lg-6">  
+                                        <div class="row"> 
+                                            <div>Elapse Time Rounds</div>
+                                            <ul>
+                                                <li class="days-style" *ngFor="let round of elapseTimeRounds">
+                                                    <a>{{round}}</a>
+                                                    <span class="child-arrow"></span>
+                                                </li>
+                                            </ul> 
+                                        </div>
+                                    </div>  
+                               </div>        
+                                <div class="row">      
+                                    <div class="col-lg-6">              
                                         <label>During</label>
                                         <select formControlName="duringTime" class="during-time"> 
                                             <option *ngFor="let duringTime of fromTime" [value]="duringTime">{{duringTime}}</option>
@@ -32,32 +47,23 @@
                                         <label>to</label>    
                                         <select formControlName="toSelectTime"  class="to-time">
                                             <option *ngFor="let toSelectTime of toTime" [value]="toSelectTime">{{toSelectTime}}</option>
-                                        </select> 
+                                        </select>                             
+                                        <div class="reset-button">
+                                            <button type="button" class="btn btn-link" [ngClass]="trackStatus ? 'display-block': 'display-none'" (click)="restToGlobalSettings(i)">Reset to Global Settings</button>
+                                        </div>                                                  
                                     </div>
-                                    <div class="reset-button">
-                                        <button type="button" class="btn btn-link" [ngClass]="trackStatus ? 'display-block': 'display-none'" (click)="restToGlobalSettings(i)">Reset to Global Settings</button>
-                                    </div>
-                                </div>
-                         
-                                <div class="pull-right">
-                                    <div class="row"> 
-                                        Elapse Time Rounds
-                                        <ul>
-                                            <li class="days-style" *ngFor="let round of elapseTimeRounds">
-                                                <a>{{round}}</a>
-                                                <span class="child-arrow"></span>
-                                            </li>
-                                        </ul>                                       
-                                    </div>
-                                    <div class="row">
-                                        Day(s)  
+                                    <div class="col-lg-6">  
+                                        <div class="row">
+                                            <div>Day(s)</div>
                                             <div class="day-frequency">  
                                                 <div FormArrayName="daysFrequency" *ngFor="let freq of d.value.daysFrequency;let index=index">
                                                     <input class="input-field-{{index}} input-field" readonly type="text" value="{{freq}}" [ngClass]="trackStatus ? 'input-enable':'input-disable'" (change)="freqChange($event,index,i)"/>                                        
                                                 </div>
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
+                        
                             </div>
                         </ng-template>
                     </ngb-panel> 

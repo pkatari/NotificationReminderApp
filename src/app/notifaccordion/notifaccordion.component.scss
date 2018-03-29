@@ -23,11 +23,8 @@
     .form-settings {
         padding: $padding-val;
         border: none;
-        display:flex;
         @include globalstyle();
      
-        .pull-right {
-           flex-grow: 3;
             ul {
                 .days-style {       
                     .child-arrow {
@@ -57,16 +54,13 @@
                     padding-left: 1em;
                 }
             }       
-        }
-        .pull-left {
-            flex-grow: 1;
             .during-time {
                 margin: 0 2em 0 4em;
             }
             .to-time {
                 margin: 0 8em 0 1em;
             }
-        }
+
     }
     
  }
@@ -150,35 +144,6 @@
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
     .accordion-list {
-        margin-top: 3em;
-        .title-accordion {
-            width: 100% !important;
-            border: 0;
-            padding: 0.5em;
-        }
-        .form-settings { 
-            flex-direction: column;
-            padding: 0 !important;
-            .title-text { 
-              padding-left: 0 !important;
-            }
-            .during-time {
-              padding: 0! important;
-            }
-            .pull-right {
-                .day-frequency {
-                    margin: 1em !important;
-                    div {
-                        &:first-child {
-                            margin-left: 0em !important;
-                        }
-                    }
-                }      
-            }
-        }
-        .reset-button {
-            margin-bottom: 2em !important;
-            left: -1em !important;
-        }
+    
     }
 }
