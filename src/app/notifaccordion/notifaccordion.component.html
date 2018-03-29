@@ -4,13 +4,13 @@
         <form [formGroup]="notification__form" (ngSubmit)="onSubmit()" novalidate>  
             <div formArrayName="notificationData">
                 <ngb-accordion [closeOthers]="true" (panelChange)="toggleAccordian($event)">                    
-                    <ngb-panel id="acc-{{i}}"  *ngFor="let d of notification__form.controls.notificationData.controls; let i=index" formGroupName="{{i}}">
+                    <ngb-panel id="notification-{{i}}"  *ngFor="let d of notification__form.controls.notificationData.controls; let i=index" formGroupName="{{i}}">
                         <ng-template ngbPanelTitle>     
                                 <input class="notification__title" formControlName="titleAccordion"/>
                                 <div class="notification__icon">
-                                    <p class="acc-save{{i}} accSaveHide" (click)="saveAccordionData($event,i)"></p>
-                                    <p class="acc-pencil{{i}}" (click)="$event.stopPropagation();$event.preventDefault();enableAcciordionForm($event,i)"></p>
-                                    <p class="acc-close{{i}} accCloseHide"></p>               
+                                    <p class="notification__save{{i}} accSaveHide" (click)="saveAccordionData($event,i)"></p>
+                                    <p class="notification__edit{{i}}" (click)="$event.stopPropagation();$event.preventDefault();enableAcciordionForm($event,i)"></p>
+                                    <p class="notification__close{{i}} accCloseHide"></p>               
                                 </div>          
                         </ng-template>
                         <ng-template ngbPanelContent>                        

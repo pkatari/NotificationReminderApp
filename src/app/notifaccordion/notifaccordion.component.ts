@@ -160,14 +160,14 @@ export class NotifaccordionComponent implements OnInit {
   private toggleAccordian( props: NgbPanelChangeEvent): void {
     const i = +props.panelId.split('-')[1];
     this.trackStatus = false;
-    const closeElement = this.renderer.selectRootElement(`.acc-close${i}`);
-    const pencilElement = this.renderer.selectRootElement(`.acc-pencil${i}`);
-    const saveElement = this.renderer.selectRootElement(`.acc-save${i}`);
+    const closeElement = this.renderer.selectRootElement(`.notification__close${i}`);
+    const pencilElement = this.renderer.selectRootElement(`.notification__edit${i}`);
+    const saveElement = this.renderer.selectRootElement(`.notification__save${i}`);
 
     for (let k = 0; k < 4; k++) {
-      const closeElement1 = this.renderer.selectRootElement(`.acc-close${k}`);
-      const pencilElement1 = this.renderer.selectRootElement(`.acc-pencil${k}`);
-      const saveElement1 = this.renderer.selectRootElement(`.acc-save${k}`);
+      const closeElement1 = this.renderer.selectRootElement(`.notification__close${k}`);
+      const pencilElement1 = this.renderer.selectRootElement(`.notification__edit${k}`);
+      const saveElement1 = this.renderer.selectRootElement(`.notification__save${k}`);
         if (k !== i) {
           this.renderer.removeClass(saveElement1, 'accSaveShow');
           this.renderer.removeClass(pencilElement1, 'accPencilShow');
@@ -199,8 +199,8 @@ export class NotifaccordionComponent implements OnInit {
   // To Change pencil icon to save icon
 private enableAcciordionForm(event, i) {
     this.trackStatus = true;
-    const saveElement = this.renderer.selectRootElement(`.acc-save${i}`);
-    const pencilElement = this.renderer.selectRootElement(`.acc-pencil${i}`);
+    const saveElement = this.renderer.selectRootElement(`.notification__save${i}`);
+    const pencilElement = this.renderer.selectRootElement(`.notification__edit${i}`);
 
     for (let k = 0; k < 4; k++) {
       const inputFieldElement = this.renderer.selectRootElement(`.input-field-${k}`);
@@ -215,8 +215,6 @@ private enableAcciordionForm(event, i) {
     const controlArray = <FormArray> this.notification__form.get('notificationData');
     controlArray.controls[i].get('duringTime').enable();
     controlArray.controls[i].get('toSelectTime').enable();
-
-
 }
 
 // This method is invoked to handle days frequency change
