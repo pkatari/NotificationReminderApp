@@ -142,5 +142,15 @@
         .notification__title {
             width: 100% !important;
         }
+        .notification__main {   
+            .global__daysfreq {
+                div {
+                    &:first-child {
+                        margin-left: 0em !important;
+                    }
+                }
+            }  
+    
+        }   
     }
 }
